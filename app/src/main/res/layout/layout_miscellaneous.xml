@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_miscellaneous"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_miscellaneous"
+    android:elevation="5dp"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    app:behavior_peekHeight="50dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <TextView
+        android:id="@+id/bottom_sheet_title"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/misc" />
+
+    <LinearLayout
+        android:id="@+id/item_delete_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:contentDescription="@string/icon_delete"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/red" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:text="@string/delete_note"
+            android:textColor="@color/red" />
+    </LinearLayout>
+
+</LinearLayout>

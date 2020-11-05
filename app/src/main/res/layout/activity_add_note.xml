@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.notes.viewmodels.AddNoteViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activities.ui.AddNoteActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            tools:ignore="UselessParent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/back_button"
+                    style="@style/default_icon_button"
+                    android:layout_marginStart="@dimen/medium_margin"
+                    android:contentDescription="@string/back_icon"
+                    android:src="@drawable/ic_arrow_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/colorIcon" />
+
+                <ImageView
+                    android:id="@+id/save_button"
+                    style="@style/default_icon_button"
+                    android:layout_marginEnd="@dimen/custom_container_margin"
+                    android:background="@drawable/round_border_icon"
+                    android:contentDescription="@string/save_icon"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_done"
+                    app:layout_constraintBottom_toBottomOf="@+id/back_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/colorIcon" />
+
+                <EditText
+                    android:id="@+id/note_title"
+                    style="@style/title_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="@dimen/custom_container_margin"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginEnd="@dimen/custom_container_margin"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:hint="@string/title"
+                    android:imeOptions="actionNext"
+                    android:includeFontPadding="false"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/back_button"
+                    tools:ignore="Autofill"
+                    tools:text="Hello" />
+
+                <TextView
+                    android:id="@+id/note_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/custom_container_margin"
+                    android:layout_marginTop="5dp"
+                    android:text="@{viewModel.dateTime}"
+                    app:layout_constraintTop_toBottomOf="@id/note_title"
+                    tools:text="Saturday, 22 October 2021 3:43 PM" />
+
+                <EditText
+                    android:id="@+id/note_subtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/subtitle"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:maxLines="3"
+                    android:padding="5dp"
+                    android:textColor="#4E4E4E"
+                    app:layout_constraintEnd_toEndOf="@id/note_title"
+                    app:layout_constraintStart_toEndOf="@id/subtitle_indicator"
+                    app:layout_constraintTop_toBottomOf="@id/note_date"
+                    tools:ignore="Autofill"
+                    tools:text="This is subtitle \n hello" />
+
+                <View
+                    android:id="@+id/subtitle_indicator"
+                    style="@style/subtitle_indicator"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/note_subtitle"
+                    app:layout_constraintStart_toStartOf="@id/note_title"
+                    app:layout_constraintTop_toTopOf="@id/note_subtitle" />
+
+                <EditText
+                    android:id="@+id/note_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/custom_container_margin"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginEnd="@dimen/custom_container_margin"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/content"
+                    android:inputType="none"
+                    android:lineHeight="30dp"
+                    android:textColor="@android:color/secondary_text_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/subtitle_indicator"
+                    tools:ignore="Autofill"
+                    tools:text="@tools:sample/lorem/random" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <include
+            android:id="@+id/layout_miscellaneous"
+            layout="@layout/layout_miscellaneous" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

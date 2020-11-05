@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.ui.MainActivity">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:includeFontPadding="false"
+            android:text="@string/app_name"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/search_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/background_gray"
+            android:clickable="true"
+            android:elevation="2dp"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_text">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/search_icon"
+                android:src="@drawable/ic_search" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/search_notes"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:textColor="@color/colorBlack" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/note_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="13dp"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/action_bar_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_container"
+            app:spanCount="2"
+            tools:itemCount="2"
+            tools:listitem="@layout/list_item" />
+
+        <LinearLayout
+            android:padding="15dp"
+            android:id="@+id/action_bar_container"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@drawable/background_white"
+            android:elevation="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="11dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/simple_ripple"
+                android:clickable="true"
+                android:contentDescription="@string/add_circle_icon"
+                android:focusable="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_round_add_circle" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/simple_ripple"
+                android:clickable="true"
+                android:contentDescription="@string/add_image_icon"
+                android:focusable="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_image" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/simple_ripple"
+                android:clickable="true"
+                android:contentDescription="@string/add_link_icon"
+                android:focusable="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_web" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/add_notes"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/simple_ripple"
+            android:clickable="true"
+            android:contentDescription="@string/add_notes_button"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:padding="8dp"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toTopOf="@id/action_bar_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/action_bar_container"
+            app:tint="@color/colorIcon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
