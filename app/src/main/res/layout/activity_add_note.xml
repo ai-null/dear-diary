@@ -29,9 +29,9 @@
                 <ImageView
                     android:id="@+id/back_button"
                     style="@style/default_icon_button"
-                    android:layout_marginStart="@dimen/medium_margin"
+                    android:layout_marginStart="@dimen/margin"
                     android:contentDescription="@string/back_icon"
-                    android:src="@drawable/ic_arrow_back"
+                    android:src="@drawable/ic_left_circle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/colorIcon" />
@@ -39,11 +39,9 @@
                 <ImageView
                     android:id="@+id/save_button"
                     style="@style/default_icon_button"
-                    android:layout_marginEnd="@dimen/custom_container_margin"
-                    android:background="@drawable/round_border_icon"
+                    android:layout_marginEnd="@dimen/margin"
                     android:contentDescription="@string/save_icon"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_done"
+                    android:src="@drawable/ic_check_circle"
                     app:layout_constraintBottom_toBottomOf="@+id/back_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
