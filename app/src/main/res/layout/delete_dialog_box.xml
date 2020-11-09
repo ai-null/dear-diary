@@ -36,7 +36,7 @@
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginTop="10dp"
         android:text="@string/delete_note_subtitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/delete_title" />
@@ -49,7 +49,7 @@
         android:layout_marginTop="@dimen/medium_margin"
         android:clickable="true"
         android:focusable="true"
-        android:text="@string/icon_delete"
+        android:text="@string/delete"
         android:textColor="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/delete_title"

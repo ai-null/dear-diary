@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Notes</string>
+    <string name="app_name">Diary</string>
 
     <!--  content description  -->
     <string name="search_icon">search_icon</string>
@@ -12,7 +12,7 @@
     <string name="icon_delete">Icon delete</string>
 
     <!--  MainActivity - EditTexts placeholder  -->
-    <string name="search_notes">Search notes</string>
+    <string name="search_notes">Search</string>
 
     <!--  AddNoteActivity - EditTexts placeholder  -->
     <string name="title">Title</string>
@@ -21,6 +21,7 @@
 
     <!--  Misc  -->
     <string name="misc">Miscellaneous</string>
+    <string name="delete">delete</string>
     <string name="delete_note">Delete note</string>
     <string name="delete_note_subtitle">Are you sure want to delete this note ?</string>
 </resources>

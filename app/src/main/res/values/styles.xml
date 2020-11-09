@@ -14,11 +14,10 @@
         <item name="android:background">@drawable/transparent_ripple</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:padding">8dp</item>
     </style>
 
     <style name="title_text_style">
-        <item name="android:fontFamily">@font/ubuntu_bold</item>
         <item name="android:lines">1</item>
         <item name="android:maxLines">1</item>
         <item name="android:textColor">@android:color/secondary_text_light</item>
