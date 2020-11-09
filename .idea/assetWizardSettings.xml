@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_check_circle" />
-                            <entry key="sourceFile" value="$USER_HOME$/Desktop/illustrastions/iconhub/check-circle.svg" />
+                            <entry key="outputName" value="ic_delete" />
+                            <entry key="sourceFile" value="$USER_HOME$/Desktop/illustrastions/iconhub/delete-alt.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -28,7 +28,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
-        android:visibility="gone"
+	android:visibility="gone"
         android:orientation="horizontal"
         android:paddingVertical="10dp">
 

@@ -21,6 +21,7 @@
 
     <!--  Misc  -->
     <string name="misc">Miscellaneous</string>
+    <string name="delete">delete</string>
     <string name="delete_note">Delete note</string>
     <string name="delete_note_subtitle">Are you sure want to delete this note ?</string>
 </resources>
