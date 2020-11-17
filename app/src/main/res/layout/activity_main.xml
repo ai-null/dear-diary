@@ -6,6 +6,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorWhite2"
         tools:context=".activities.ui.MainActivity">
 
         <TextView
@@ -42,7 +43,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:contentDescription="@string/search_icon"
-                android:src="@drawable/ic_menu" />
+                android:src="@drawable/ic_search" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -132,10 +133,10 @@
             android:elevation="4dp"
             android:focusable="true"
             android:padding="8dp"
-            android:src="@drawable/ic_create_note_alt"
+            android:src="@drawable/ic_add"
             app:layout_constraintBottom_toTopOf="@id/action_bar_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/action_bar_container"
-            app:tint="@color/colorIcon" />
+            app:tint="@color/colorIcon"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

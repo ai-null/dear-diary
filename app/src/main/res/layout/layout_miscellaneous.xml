@@ -28,7 +28,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
-	android:visibility="gone"
+	    android:visibility="gone"
         android:orientation="horizontal"
         android:paddingVertical="10dp">
 
@@ -38,7 +38,7 @@
             android:layout_marginStart="@dimen/medium_margin"
             android:contentDescription="@string/icon_delete"
             android:src="@drawable/ic_delete"
-            app:tint="@color/red" />
+            app:tint="@color/colorRed" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Button"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/medium_margin"
             android:text="@string/delete_note"
-            android:textColor="@color/red" />
+            android:textColor="@color/colorRed" />
     </LinearLayout>
 
 </LinearLayout>

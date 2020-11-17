@@ -33,8 +33,7 @@
                     android:contentDescription="@string/back_icon"
                     android:src="@drawable/ic_left_circle"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/colorIcon" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
                     android:id="@+id/save_button"
@@ -44,8 +43,7 @@
                     android:src="@drawable/ic_check_circle"
                     app:layout_constraintBottom_toBottomOf="@+id/back_button"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/colorIcon" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/note_title"
@@ -78,33 +76,6 @@
                     tools:text="Saturday, 22 October 2021 3:43 PM" />
 
                 <EditText
-                    android:id="@+id/note_subtitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/subtitle"
-                    android:imeOptions="actionNext"
-                    android:inputType="none"
-                    android:maxLines="3"
-                    android:padding="5dp"
-                    android:textColor="#4E4E4E"
-                    app:layout_constraintEnd_toEndOf="@id/note_title"
-                    app:layout_constraintStart_toEndOf="@id/subtitle_indicator"
-                    app:layout_constraintTop_toBottomOf="@id/note_date"
-                    tools:ignore="Autofill"
-                    tools:text="This is subtitle \n hello" />
-
-                <View
-                    android:id="@+id/subtitle_indicator"
-                    style="@style/subtitle_indicator"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@id/note_subtitle"
-                    app:layout_constraintStart_toStartOf="@id/note_title"
-                    app:layout_constraintTop_toTopOf="@id/note_subtitle" />
-
-                <EditText
                     android:id="@+id/note_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -118,7 +89,7 @@
                     android:lineHeight="30dp"
                     android:textColor="@android:color/secondary_text_light"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/subtitle_indicator"
+                    app:layout_constraintTop_toBottomOf="@id/note_date"
                     tools:ignore="Autofill"
                     tools:text="@tools:sample/lorem/random" />
 

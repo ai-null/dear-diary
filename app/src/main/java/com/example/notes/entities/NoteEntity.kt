@@ -14,7 +14,6 @@ data class NoteEntity(
     val title: String,
     @ColumnInfo(name = "date_time")
     val dateTime: String,
-    val subtitle: String,
     val content: String,
     @ColumnInfo(name = "image_path")
     val imagePath: String? = null,
@@ -27,7 +26,6 @@ data class NoteEntity(
         parcel.readString() as String,
         parcel.readString() as String,
         parcel.readString() as String,
-        parcel.readString() as String,
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -37,7 +35,6 @@ data class NoteEntity(
         parcel.writeValue(id)
         parcel.writeString(title)
         parcel.writeString(dateTime)
-        parcel.writeString(subtitle)
         parcel.writeString(content)
         parcel.writeString(imagePath)
         parcel.writeString(color)

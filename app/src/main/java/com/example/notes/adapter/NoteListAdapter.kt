@@ -1,11 +1,8 @@
 package com.example.notes.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notes.R
 import com.example.notes.databinding.ListItemBinding
 import com.example.notes.entities.NoteEntity
 
@@ -38,7 +35,7 @@ class NoteListAdapter(private val clickListener: NoteClickListener) :
 
         fun bind(data: NoteEntity) {
             binding.itemTitle.text = data.title
-            binding.itemSubtitle.text = data.subtitle
+            binding.itemSubtitle.text = data.content
         }
     }
 
