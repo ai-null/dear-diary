@@ -21,30 +21,63 @@
         android:text="@string/misc" />
 
     <LinearLayout
-        android:id="@+id/item_delete_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-	    android:visibility="gone"
-        android:orientation="horizontal"
-        android:paddingVertical="10dp">
+        style="@style/bottomBarSelectableItem">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_margin"
+            style="@style/selectableItemImage"
+            android:src="@drawable/ic_image" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            android:text="@string/add_img" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/bottomBarSelectableItem">
+
+        <ImageView
+            style="@style/selectableItemImage"
+            android:src="@drawable/ic_web" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            android:text="@string/add_link" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/bottomBarSelectableItem">
+
+        <ImageView
+            style="@style/selectableItemImage"
+            android:src="@drawable/ic_copy_alt" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            android:text="@string/make_copy" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/bottomBarSelectableItem">
+
+        <ImageView
+            style="@style/selectableItemImage"
+            android:src="@drawable/ic_share" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            android:text="@string/share" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_delete_note"
+        style="@style/bottomBarSelectableItem"
+        android:visibility="gone">
+
+        <ImageView
+            style="@style/selectableItemImage"
             android:contentDescription="@string/icon_delete"
             android:src="@drawable/ic_delete"
             app:tint="@color/colorRed" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_margin"
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
             android:text="@string/delete_note"
             android:textColor="@color/colorRed" />
     </LinearLayout>

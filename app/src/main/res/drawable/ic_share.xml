@@ -6,21 +6,14 @@
     android:tint="?attr/colorControlNormal">
     <path
         android:fillColor="#00000000"
-        android:pathData="M9,18L21,18"
+        android:pathData="M16,10h2a1,1 0,0 1,1 1v9a1,1 0,0 1,-1 1H6a1,1 0,0 1,-1 -1V11a1,1 0,0 1,1 -1H8"
         android:strokeWidth="2"
         android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
-        android:pathData="M3,12L21,12"
-        android:strokeWidth="2"
-        android:strokeColor="#000000"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M3,6L15,6"
+        android:pathData="M8,6l4,-4 4,4M12,2V15"
         android:strokeWidth="2"
         android:strokeColor="#000000"
         android:strokeLineCap="round"
