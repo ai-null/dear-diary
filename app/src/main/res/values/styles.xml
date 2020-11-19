@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -24,13 +24,8 @@
         <item name="android:textSize">26sp</item>
     </style>
 
-    <style name="subtitle_indicator">
-        <item name="android:layout_width">5dp</item>
-        <item name="android:layout_height">20dp</item>
-        <item name="android:background">@drawable/background_grey</item>
-    </style>
-
-    <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Splash" parent="AppTheme">
+        <item name="colorBackgroundSplash">@color/colorWhite</item>
         <item name="android:windowBackground">@drawable/background_splash</item>
         <item name="android:statusBarColor">@color/colorBlack</item>
     </style>
@@ -43,7 +38,7 @@
         <item name="android:focusable">true</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingVertical">15dp</item>
+        <item name="android:paddingVertical" tools:ignore="NewApi">15dp</item>
     </style>
 
     <style name="selectableItemImage">

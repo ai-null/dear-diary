@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="30dp"
-    android:background="@drawable/background_gray">
+    android:background="@drawable/background_searchbar">
 
     <ImageView
         android:id="@+id/delete_icon"
