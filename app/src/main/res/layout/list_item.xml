@@ -8,7 +8,6 @@
         android:layout_margin="5dp"
         android:background="@drawable/background_item"
         android:clickable="true"
-        android:elevation="1dp"
         android:focusable="true"
         android:orientation="vertical"
         android:padding="12dp"
@@ -35,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                android:padding="5dp"
                 android:paddingEnd="10dp"
                 tools:text="This is subtitle" />
 
