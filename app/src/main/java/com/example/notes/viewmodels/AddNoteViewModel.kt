@@ -46,7 +46,6 @@ class AddNoteViewModel(app: Application) : ViewModel() {
                 database.addNote(
                     NoteEntity(
                         title = data.title,
-                        subtitle = data.subtitle,
                         content = data.content,
                         dateTime = dateTime
                     )
@@ -56,7 +55,6 @@ class AddNoteViewModel(app: Application) : ViewModel() {
                     NoteEntity(
                         id = data.id,
                         title = data.title,
-                        subtitle = data.subtitle,
                         content = data.content,
                         dateTime = dateTime
                     )

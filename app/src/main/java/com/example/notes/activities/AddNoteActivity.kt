@@ -27,7 +27,6 @@ class AddNoteActivity : AppCompatActivity() {
 
     private var id: Int = 0
     private lateinit var title: TextView
-    private lateinit var subtitle: TextView
     private lateinit var content: TextView
 
     private lateinit var dialogDeleteNote: AlertDialog
@@ -45,7 +44,6 @@ class AddNoteActivity : AppCompatActivity() {
         binding.viewModel = viewModel
 
         title = binding.noteTitle
-        subtitle = binding.noteSubtitle
         content = binding.noteContent
 
         // Make sure to define extra intent after binding, since it used for set the data
@@ -55,7 +53,6 @@ class AddNoteActivity : AppCompatActivity() {
                 id = it.id!!
                 title.text = it.title
                 binding.noteDate.text = it.dateTime
-                subtitle.text = it.subtitle
                 content.text = it.content
             }
         }
@@ -85,7 +82,6 @@ class AddNoteActivity : AppCompatActivity() {
                 try {
                     when (0) {
                         title.text.length -> showToast("Title can't be empty")
-                        subtitle.text.length -> showToast("Subtitle can't be empty")
                         content.text.length -> showToast("Content can't be empty")
 
                         else -> {
@@ -93,7 +89,6 @@ class AddNoteActivity : AppCompatActivity() {
                                 NoteEntity(
                                     id = intent.getParcelableExtra<NoteEntity>("note")?.id,
                                     title = title.text.toString(),
-                                    subtitle = subtitle.text.toString(),
                                     content = content.text.toString(),
                                     dateTime = viewModel.dateTime
                                 )

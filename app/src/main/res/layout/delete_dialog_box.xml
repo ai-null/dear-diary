@@ -7,13 +7,14 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="30dp"
-    android:background="@drawable/background_gray"
-    android:padding="16dp">
+    android:background="@drawable/background_searchbar">
 
     <ImageView
         android:id="@+id/delete_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginTop="@dimen/medium_margin"
         android:src="@drawable/ic_delete"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,6 +26,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
         android:text="@string/delete_note"
         app:layout_constraintBottom_toBottomOf="@id/delete_icon"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,8 +39,11 @@
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/medium_margin"
         android:text="@string/delete_note_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/delete_title" />
 
@@ -47,10 +53,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginBottom="10dp"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/delete"
-        android:textColor="@color/red"
+        android:textColor="@color/colorRed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/delete_title"
         app:layout_constraintTop_toBottomOf="@id/delete_subtitle" />
@@ -60,11 +67,12 @@
         style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textColor="@color/colorIcon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/delete_button"
         app:layout_constraintEnd_toStartOf="@id/delete_button"
         app:layout_constraintTop_toTopOf="@id/delete_button" />
 

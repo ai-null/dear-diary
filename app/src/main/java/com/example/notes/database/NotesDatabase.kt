@@ -12,7 +12,7 @@ enum class SaveState(val value: String) {
     UPDATE("update")
 }
 
-@Database(entities = [NoteEntity::class], version = 1, exportSchema = false)
+@Database(entities = [NoteEntity::class], version = 2, exportSchema = false)
 abstract class NotesDatabase : RoomDatabase() {
 
     abstract val notesDao: NotesDao
