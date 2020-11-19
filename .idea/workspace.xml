@@ -10,10 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="429560cf-9303-445e-8758-0ce1383c5acd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/splash_icon.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/splash_icon.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/splash_icon.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/splash_icon.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ripple_add_note.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
@@ -34,6 +31,7 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/background_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/background_item_note.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/background_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/background_splash.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/background_white.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/background_actionbar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/delete_dialog_box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/delete_dialog_box.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item.xml" afterDir="false" />
@@ -65,8 +63,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="resourceFile" />
         <option value="valueResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -185,22 +183,22 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="471" y="141" key="FileChooserDialogImpl/0.24.1366.744@0.24.1366.744" timestamp="1605668543038" />
-    <state width="1320" height="186" key="GridCell.Tab.0.bottom" timestamp="1605756956635">
+    <state width="1320" height="186" key="GridCell.Tab.0.bottom" timestamp="1605775807655">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state width="1320" height="186" key="GridCell.Tab.0.bottom/0.24.1366.744@0.24.1366.744" timestamp="1605756956635" />
-    <state width="1320" height="186" key="GridCell.Tab.0.center" timestamp="1605756956634">
+    <state width="1320" height="186" key="GridCell.Tab.0.bottom/0.24.1366.744@0.24.1366.744" timestamp="1605775807655" />
+    <state width="1320" height="186" key="GridCell.Tab.0.center" timestamp="1605775807654">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state width="1320" height="186" key="GridCell.Tab.0.center/0.24.1366.744@0.24.1366.744" timestamp="1605756956634" />
-    <state width="1320" height="186" key="GridCell.Tab.0.left" timestamp="1605756956634">
+    <state width="1320" height="186" key="GridCell.Tab.0.center/0.24.1366.744@0.24.1366.744" timestamp="1605775807654" />
+    <state width="1320" height="186" key="GridCell.Tab.0.left" timestamp="1605775807654">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state width="1320" height="186" key="GridCell.Tab.0.left/0.24.1366.744@0.24.1366.744" timestamp="1605756956634" />
-    <state width="1320" height="186" key="GridCell.Tab.0.right" timestamp="1605756956635">
+    <state width="1320" height="186" key="GridCell.Tab.0.left/0.24.1366.744@0.24.1366.744" timestamp="1605775807654" />
+    <state width="1320" height="186" key="GridCell.Tab.0.right" timestamp="1605775807655">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state width="1320" height="186" key="GridCell.Tab.0.right/0.24.1366.744@0.24.1366.744" timestamp="1605756956635" />
+    <state width="1320" height="186" key="GridCell.Tab.0.right/0.24.1366.744@0.24.1366.744" timestamp="1605775807655" />
     <state x="345" y="211" key="com.intellij.ide.util.TipDialog" timestamp="1605773287403">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
