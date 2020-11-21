@@ -3,26 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_delete_note_container"
-    app:cardCornerRadius="@dimen/margin"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    app:cardCornerRadius="@dimen/margin"
+    tools:layout_marginHorizontal="@dimen/medium_margin"
+    tools:layout_width="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/delete_icon"
+            android:id="@+id/delete_cover"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:scaleType="fitEnd"
+            android:background="@color/colorSecondary"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingEnd="@dimen/medium_margin"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_plantdoodle"
-            android:background="#82B1FF"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,RtlSymmetry" />
+
 
         <TextView
             android:id="@+id/delete_subtitle"
@@ -32,38 +37,51 @@
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_marginEnd="@dimen/medium_margin"
+            android:gravity="center"
             android:text="@string/delete_note_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/delete_icon" />
+            app:layout_constraintTop_toBottomOf="@id/delete_cover" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_button"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-            android:layout_width="wrap_content"
+            style="@style/TextAppearance.MaterialComponents.Button"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/margin"
             android:clickable="true"
+            android:elevation="0dp"
             android:focusable="true"
             android:text="@string/delete"
-            android:layout_marginEnd="@dimen/medium_margin"
-            android:textColor="@color/colorRed"
+            android:textColor="@color/colorWhite"
+            android:theme="@style/Theme.MaterialComponents"
+            app:backgroundTint="#EC407A"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/delete_subtitle" />
+            app:layout_constraintStart_toEndOf="@id/button_cancel"
+            app:layout_constraintTop_toBottomOf="@id/delete_subtitle"
+            app:rippleColor="@color/colorWhite2" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_cancel"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_margin"
+            app:rippleColor="#BABABA"
             android:layout_marginEnd="5dp"
             android:clickable="true"
             android:focusable="true"
+            android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/colorIcon"
+            android:theme="@style/Theme.MaterialComponents"
             app:layout_constraintBottom_toBottomOf="@id/delete_button"
             app:layout_constraintEnd_toStartOf="@id/delete_button"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/delete_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

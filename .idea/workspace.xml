@@ -22,13 +22,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/delete_dialog_box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/delete_dialog_box.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_miscellaneous.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_miscellaneous.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -184,26 +181,26 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="471" y="141" key="FileChooserDialogImpl/0.24.1366.744@0.24.1366.744" timestamp="1605948378918" />
-    <state width="1320" height="547" key="GridCell.Tab.0.bottom" timestamp="1605949949058">
+    <state width="1320" height="547" key="GridCell.Tab.0.bottom" timestamp="1605978618077">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state width="1320" height="547" key="GridCell.Tab.0.bottom/0.24.1366.744@0.24.1366.744" timestamp="1605949949058" />
-    <state width="1320" height="547" key="GridCell.Tab.0.center" timestamp="1605949949058">
+    <state width="1320" height="547" key="GridCell.Tab.0.bottom/0.24.1366.744@0.24.1366.744" timestamp="1605978618077" />
+    <state width="1320" height="547" key="GridCell.Tab.0.center" timestamp="1605978618075">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state width="1320" height="547" key="GridCell.Tab.0.center/0.24.1366.744@0.24.1366.744" timestamp="1605949949058" />
-    <state width="1320" height="547" key="GridCell.Tab.0.left" timestamp="1605949949057">
+    <state width="1320" height="547" key="GridCell.Tab.0.center/0.24.1366.744@0.24.1366.744" timestamp="1605978618075" />
+    <state width="1320" height="547" key="GridCell.Tab.0.left" timestamp="1605978618075">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state width="1320" height="547" key="GridCell.Tab.0.left/0.24.1366.744@0.24.1366.744" timestamp="1605949949057" />
-    <state width="1320" height="547" key="GridCell.Tab.0.right" timestamp="1605949949058">
+    <state width="1320" height="547" key="GridCell.Tab.0.left/0.24.1366.744@0.24.1366.744" timestamp="1605978618075" />
+    <state width="1320" height="547" key="GridCell.Tab.0.right" timestamp="1605978618076">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state width="1320" height="547" key="GridCell.Tab.0.right/0.24.1366.744@0.24.1366.744" timestamp="1605949949058" />
-    <state x="345" y="211" key="com.intellij.ide.util.TipDialog" timestamp="1605947746088">
+    <state width="1320" height="547" key="GridCell.Tab.0.right/0.24.1366.744@0.24.1366.744" timestamp="1605978618076" />
+    <state x="345" y="211" key="com.intellij.ide.util.TipDialog" timestamp="1605973442477">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="345" y="211" key="com.intellij.ide.util.TipDialog/0.24.1366.744@0.24.1366.744" timestamp="1605947746088" />
+    <state x="345" y="211" key="com.intellij.ide.util.TipDialog/0.24.1366.744@0.24.1366.744" timestamp="1605973442477" />
     <state x="335" y="118" width="787" height="522" key="find.popup" timestamp="1605775686434">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
@@ -216,9 +213,9 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="346" y="165" key="run.anything.popup/0.24.1366.744@0.24.1366.744" timestamp="1604777107557" />
-    <state x="346" y="88" width="672" height="678" key="search.everywhere.popup" timestamp="1605952171959">
+    <state x="346" y="88" width="672" height="678" key="search.everywhere.popup" timestamp="1605977101162">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="346" y="88" width="672" height="678" key="search.everywhere.popup/0.24.1366.744@0.24.1366.744" timestamp="1605952171959" />
+    <state x="346" y="88" width="672" height="678" key="search.everywhere.popup/0.24.1366.744@0.24.1366.744" timestamp="1605977101162" />
   </component>
 </project>
