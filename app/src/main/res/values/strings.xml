@@ -24,7 +24,7 @@
     <string name="delete">delete</string>
     <string name="cancel">Cancel</string>
     <string name="delete_note">Delete note</string>
-    <string name="delete_note_subtitle">Are you sure want to delete this note ?</string>
+    <string name="delete_note_subtitle">Are you sure want to delete this story ?</string>
     <string name="add_img">Add an image</string>
     <string name="add_link">Add a link</string>
     <string name="make_copy">Make a copy</string>
