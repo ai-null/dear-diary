@@ -29,8 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_share" />
-                            <entry key="sourceFile" value="$USER_HOME$/Desktop/illustrastions/iconhub/share.svg" />
+                            <entry key="outputName" value="ic_plantdoodle" />
+                            <entry key="sourceFile" value="$USER_HOME$/Desktop/illustrastions/PlantDoodle.svg" />
                           </map>
                         </option>
                       </PersistentState>
