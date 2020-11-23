@@ -24,89 +24,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="@dimen/medium_margin">
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp">
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_margin">
+            android:layout_marginEnd="@dimen/margin"
+            android:background="@drawable/simple_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="6dp">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:tint="@color/colorMiscOrange"
-                android:src="@drawable/ripple_add_note"/>
+                style="@style/select_color_background"
+                android:src="@drawable/background_add_color"
+                app:tint="@color/colorMiscOrange" />
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_done"
-                android:padding="@dimen/margin"/>
+                style="@style/select_color_check"
+                android:src="@drawable/ic_done" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_margin">
+            android:layout_marginEnd="@dimen/margin"
+            android:background="@drawable/simple_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="6dp">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:tint="@color/colorMiscPink"
-                android:src="@drawable/ripple_add_note"/>
+                style="@style/select_color_background"
+                android:src="@drawable/background_add_color"
+                app:tint="@color/colorMiscPink" />
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_done"
-                android:padding="@dimen/margin"/>
+                style="@style/select_color_check"
+                android:src="@drawable/ic_done" />
 
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_margin">
+            android:layout_marginEnd="@dimen/margin"
+            android:background="@drawable/simple_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="6dp">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:tint="@color/colorMiscBlue"
-                android:src="@drawable/ripple_add_note"/>
+                style="@style/select_color_background"
+                android:src="@drawable/background_add_color"
+                app:tint="@color/colorMiscBlue" />
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_done"
-                android:padding="@dimen/margin"/>
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_margin">
-
-            <ImageView
-                android:layout_width="35dp"
-                app:tint="@color/colorMiscGreen"
-                android:layout_height="35dp"
-                android:src="@drawable/ripple_add_note"/>
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_done"
-                android:padding="@dimen/margin"/>
+                style="@style/select_color_check"
+                android:src="@drawable/ic_done" />
 
         </FrameLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/bottomBarSelectableItem">
+    <LinearLayout style="@style/bottomBarSelectableItem">
 
         <ImageView
             style="@style/selectableItemImage"
