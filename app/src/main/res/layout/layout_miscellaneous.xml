@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_miscellaneous"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -43,7 +44,8 @@
 
             <ImageView
                 style="@style/select_color_check"
-                android:src="@drawable/ic_done" />
+                android:src="@drawable/ic_done"
+                tools:ignore="ContentDescription" />
 
         </FrameLayout>
 
@@ -63,6 +65,7 @@
 
             <ImageView
                 style="@style/select_color_check"
+                tools:ignore="ContentDescription"
                 android:src="@drawable/ic_done" />
 
         </FrameLayout>
@@ -83,17 +86,21 @@
 
             <ImageView
                 style="@style/select_color_check"
+                tools:ignore="ContentDescription"
                 android:src="@drawable/ic_done" />
 
         </FrameLayout>
 
     </LinearLayout>
 
-    <LinearLayout style="@style/bottomBarSelectableItem">
+    <LinearLayout
+        android:id="@+id/item_select_image"
+        style="@style/bottomBarSelectableItem">
 
         <ImageView
             style="@style/selectableItemImage"
-            android:src="@drawable/ic_image" />
+            android:src="@drawable/ic_image"
+            android:contentDescription="@string/add_image_icon" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Button.selectableItemText"
@@ -104,6 +111,7 @@
 
         <ImageView
             style="@style/selectableItemImage"
+            android:contentDescription="@string/add_link"
             android:src="@drawable/ic_web" />
 
         <TextView
@@ -114,6 +122,7 @@
     <LinearLayout style="@style/bottomBarSelectableItem">
 
         <ImageView
+            android:contentDescription="@string/make_copy"
             style="@style/selectableItemImage"
             android:src="@drawable/ic_copy_alt" />
 
@@ -125,6 +134,7 @@
     <LinearLayout style="@style/bottomBarSelectableItem">
 
         <ImageView
+            android:contentDescription="@string/share"
             style="@style/selectableItemImage"
             android:src="@drawable/ic_share" />
 
@@ -134,7 +144,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/item_delete_note"
+        android:id="@+id/item_delete"
         style="@style/bottomBarSelectableItem"
         android:visibility="gone">
 
