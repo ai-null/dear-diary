@@ -10,15 +10,28 @@
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
-        android:padding="12dp"
         tools:layout_width="match_parent">
 
+        <ImageView
+            android:id="@+id/item_cover"
+            android:layout_width="match_parent"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:src="@drawable/ic_plantdoodle"
+            tools:layout_height="100dp"
+            tools:ignore="ContentDescription" />
+
         <TextView
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             android:id="@+id/item_title"
             style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
             android:singleLine="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
             android:maxLines="2"
             android:textColor="@android:color/secondary_text_light"
             android:textStyle="bold"
@@ -27,18 +40,20 @@
             tools:text="@tools:sample/lorem/random" />
 
         <LinearLayout
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/item_subtitle"
+                android:id="@+id/item_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
                 android:lineHeight="20dp"
-                android:paddingEnd="10dp"
                 tools:text="@tools:sample/lorem/random" />
 
         </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.notes.activities
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
@@ -42,6 +43,7 @@ class AddNoteActivity : AppCompatActivity() {
     private var id: Int = 0
     private lateinit var title: TextView
     private lateinit var content: TextView
+    private lateinit var selectedImagePath: String
 
     private lateinit var dialogDeleteNote: AlertDialog
 
@@ -66,9 +68,16 @@ class AddNoteActivity : AppCompatActivity() {
             intent.extras?.getParcelable<NoteEntity>("note")?.let {
                 id = it.id!!
                 title.text = it.title
-                binding.noteDate.text = it.dateTime
+                binding.dateTime = it.dateTime
                 content.text = it.content
+
+                if (it.imagePath != null) {
+                    binding.imageCover.setImageBitmap(BitmapFactory.decodeFile(it.imagePath))
+                    binding.imageCover.visibility = View.VISIBLE
+                }
             }
+        } else {
+            binding.dateTime = viewModel.dateTime
         }
 
         updateLiveData()
@@ -122,6 +131,7 @@ class AddNoteActivity : AppCompatActivity() {
                         id = intent.getParcelableExtra<NoteEntity>("note")?.id,
                         title = title.text.toString(),
                         content = content.text.toString(),
+                        imagePath = selectedImagePath,
                         dateTime = viewModel.dateTime
                     )
                 )
@@ -242,10 +252,35 @@ class AddNoteActivity : AppCompatActivity() {
                     val inputStream: InputStream = contentResolver.openInputStream(selectedImage)!!
                     val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
 
+                    selectedImagePath = getSelectedImagePath(selectedImage)
+                    Log.i("selectedImagePath", selectedImagePath)
+
                     binding.imageCover.setImageBitmap(bitmap)
                     binding.imageCover.visibility = View.VISIBLE
                 }
             }
         }
+    }
+
+    private fun getSelectedImagePath(contentUri: Uri): String {
+        val filePath: String
+        val cursor: Cursor? = contentResolver.query(
+            contentUri,
+            null,
+            null,
+            null,
+            null
+        )
+
+        if (cursor == null) {
+            filePath = contentUri.path!!
+        } else {
+            cursor.moveToFirst()
+            val index: Int = cursor.getColumnIndex("_data")
+            filePath = cursor.getString(index)
+            cursor.close()
+        }
+
+        return filePath
     }
 }

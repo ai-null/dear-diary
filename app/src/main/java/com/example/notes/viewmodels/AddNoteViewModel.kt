@@ -28,10 +28,7 @@ class AddNoteViewModel(app: Application) : ViewModel() {
 
     // LiveData
     private val _saveState = MutableLiveData<SaveState>()
-    private val _visibleDeleteButton = MutableLiveData<Int>()
-
     val saveState: LiveData<SaveState> get() = _saveState
-    val visibleDeleteButton: LiveData<Int> get() = _visibleDeleteButton
 
     /**
      * @param data NoteEntity
@@ -47,6 +44,7 @@ class AddNoteViewModel(app: Application) : ViewModel() {
                     NoteEntity(
                         title = data.title,
                         content = data.content,
+                        imagePath = data.imagePath,
                         dateTime = dateTime
                     )
                 )
@@ -55,6 +53,7 @@ class AddNoteViewModel(app: Application) : ViewModel() {
                     NoteEntity(
                         id = data.id,
                         title = data.title,
+                        imagePath = data.imagePath,
                         content = data.content,
                         dateTime = dateTime
                     )
