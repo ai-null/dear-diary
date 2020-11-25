@@ -1,6 +1,8 @@
 package com.example.notes.adapter
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.databinding.ListItemBinding
@@ -35,7 +37,11 @@ class NoteListAdapter(private val clickListener: NoteClickListener) :
 
         fun bind(data: NoteEntity) {
             binding.itemTitle.text = data.title
-            binding.itemSubtitle.text = data.content
+            binding.itemContent.text = data.content
+            if (data.imagePath != null) {
+                binding.itemCover.setImageBitmap(BitmapFactory.decodeFile(data.imagePath))
+                binding.itemCover.visibility = View.VISIBLE
+            }
         }
     }
 
