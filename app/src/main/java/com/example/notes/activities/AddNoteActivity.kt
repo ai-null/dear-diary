@@ -1,7 +1,6 @@
 package com.example.notes.activities
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -21,7 +20,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
 import com.example.notes.database.SaveState
@@ -162,13 +160,14 @@ class AddNoteActivity : AppCompatActivity() {
         }
 
         miscellaneousLayout.findViewById<LinearLayout>(R.id.item_delete).setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             showDialogDeleteNote()
         }
 
         miscellaneousLayout.findViewById<LinearLayout>(R.id.item_select_image).setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             if (ContextCompat.checkSelfPermission(
-                    applicationContext, android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
@@ -197,7 +196,6 @@ class AddNoteActivity : AppCompatActivity() {
             dialogDeleteNote.show()
         }
 
-
         view.findViewById<Button>(R.id.delete_button).setOnClickListener {
             dialogDeleteNote.dismiss()
             viewModel.onDeletePressed(true)
@@ -209,7 +207,7 @@ class AddNoteActivity : AppCompatActivity() {
     }
 
     private fun selectImage() {
-        val intent: Intent =
+        val intent =
             Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
         if (intent.resolveActivity(packageManager) != null) {

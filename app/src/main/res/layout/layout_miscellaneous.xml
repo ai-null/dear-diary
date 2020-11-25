@@ -22,92 +22,23 @@
         android:text="@string/misc" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="5dp">
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin"
-            android:background="@drawable/simple_ripple"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="6dp">
-
-            <ImageView
-                style="@style/select_color_background"
-                android:src="@drawable/background_add_color"
-                app:tint="@color/colorMiscOrange" />
-
-            <ImageView
-                style="@style/select_color_check"
-                android:src="@drawable/ic_done"
-                tools:ignore="ContentDescription" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin"
-            android:background="@drawable/simple_ripple"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="6dp">
-
-            <ImageView
-                style="@style/select_color_background"
-                android:src="@drawable/background_add_color"
-                app:tint="@color/colorMiscPink" />
-
-            <ImageView
-                style="@style/select_color_check"
-                tools:ignore="ContentDescription"
-                android:src="@drawable/ic_done" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin"
-            android:background="@drawable/simple_ripple"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="6dp">
-
-            <ImageView
-                style="@style/select_color_background"
-                android:src="@drawable/background_add_color"
-                app:tint="@color/colorMiscBlue" />
-
-            <ImageView
-                style="@style/select_color_check"
-                tools:ignore="ContentDescription"
-                android:src="@drawable/ic_done" />
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/item_select_image"
-        style="@style/bottomBarSelectableItem">
+        style="@style/bottomBarSelectableItem"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/selectableItemImage"
-            android:src="@drawable/ic_image"
-            android:contentDescription="@string/add_image_icon" />
+            android:contentDescription="@string/add_image_icon"
+            android:src="@drawable/ic_image" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Button.selectableItemText"
             android:text="@string/add_img" />
     </LinearLayout>
 
-    <LinearLayout style="@style/bottomBarSelectableItem">
+    <LinearLayout
+        style="@style/bottomBarSelectableItem"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/selectableItemImage"
@@ -119,11 +50,13 @@
             android:text="@string/add_link" />
     </LinearLayout>
 
-    <LinearLayout style="@style/bottomBarSelectableItem">
+    <LinearLayout
+        style="@style/bottomBarSelectableItem"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:contentDescription="@string/make_copy"
             style="@style/selectableItemImage"
+            android:contentDescription="@string/make_copy"
             android:src="@drawable/ic_copy_alt" />
 
         <TextView
@@ -131,11 +64,13 @@
             android:text="@string/make_copy" />
     </LinearLayout>
 
-    <LinearLayout style="@style/bottomBarSelectableItem">
+    <LinearLayout
+        style="@style/bottomBarSelectableItem"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:contentDescription="@string/share"
             style="@style/selectableItemImage"
+            android:contentDescription="@string/share"
             android:src="@drawable/ic_share" />
 
         <TextView
@@ -146,7 +81,8 @@
     <LinearLayout
         android:id="@+id/item_delete"
         style="@style/bottomBarSelectableItem"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/selectableItemImage"
