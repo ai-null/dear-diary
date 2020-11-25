@@ -14,10 +14,11 @@
     <!--  MainActivity - EditTexts placeholder  -->
     <string name="search_notes">Search</string>
 
-    <!--  AddNoteActivity - EditTexts placeholder  -->
+    <!--  AddNoteActivity - EditTexts placeholder && Image cover -->
     <string name="title">Title</string>
     <string name="subtitle">Subtitle</string>
     <string name="content">Content</string>
+    <string name="image_cover">image cover</string>
 
     <!--  Dialog delete  -->
     <string name="delete">delete</string>

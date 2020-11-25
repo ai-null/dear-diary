@@ -1,8 +1,15 @@
 package com.example.notes.activities
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +18,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
 import com.example.notes.database.SaveState
@@ -18,7 +27,12 @@ import com.example.notes.databinding.ActivityAddNoteBinding
 import com.example.notes.entities.NoteEntity
 import com.example.notes.viewmodels.AddNoteViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import java.io.InputStream
 import java.lang.Exception
+
+
+private const val REQUEST_CODE_STORAGE_PERMISSION = 1
+private const val REQUEST_CODE_SELECT_IMAGE = 2
 
 class AddNoteActivity : AppCompatActivity() {
 
@@ -48,7 +62,7 @@ class AddNoteActivity : AppCompatActivity() {
 
         // Make sure to define extra intent after binding, since it used for set the data
         if (intent.hasExtra("update")) {
-            findViewById<LinearLayout>(R.id.item_delete_note).visibility = View.VISIBLE
+            findViewById<LinearLayout>(R.id.item_delete).visibility = View.VISIBLE
             intent.extras?.getParcelable<NoteEntity>("note")?.let {
                 id = it.id!!
                 title.text = it.title
@@ -80,26 +94,7 @@ class AddNoteActivity : AppCompatActivity() {
         viewModel.saveState.observe(this, {
             it?.let {
                 try {
-                    when (0) {
-                        title.text.length -> showToast("Title can't be empty")
-                        content.text.length -> showToast("Content can't be empty")
-
-                        else -> {
-                            viewModel.save(
-                                NoteEntity(
-                                    id = intent.getParcelableExtra<NoteEntity>("note")?.id,
-                                    title = title.text.toString(),
-                                    content = content.text.toString(),
-                                    dateTime = viewModel.dateTime
-                                )
-                            )
-
-                            val intent = intent
-                            setResult(RESULT_OK, intent)
-                            finish()
-                        }
-                    }
-
+                    saveFromViewModel()
                 } catch (e: Exception) {
                     Log.i("Error", "${e.message}")
                 }
@@ -114,6 +109,28 @@ class AddNoteActivity : AppCompatActivity() {
                 finish()
             }
         })
+    }
+
+    private fun saveFromViewModel() {
+        when (0) {
+            title.text.length -> showToast("Title can't be empty")
+            content.text.length -> showToast("Content can't be empty")
+
+            else -> {
+                viewModel.save(
+                    NoteEntity(
+                        id = intent.getParcelableExtra<NoteEntity>("note")?.id,
+                        title = title.text.toString(),
+                        content = content.text.toString(),
+                        dateTime = viewModel.dateTime
+                    )
+                )
+
+                val intent = intent
+                setResult(RESULT_OK, intent)
+                finish()
+            }
+        }
     }
 
     /**
@@ -142,8 +159,25 @@ class AddNoteActivity : AppCompatActivity() {
             }
         }
 
-        miscellaneousLayout.findViewById<LinearLayout>(R.id.item_delete_note).setOnClickListener {
+        miscellaneousLayout.findViewById<LinearLayout>(R.id.item_delete).setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             showDialogDeleteNote()
+        }
+
+        miscellaneousLayout.findViewById<LinearLayout>(R.id.item_select_image).setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            if (ContextCompat.checkSelfPermission(
+                    applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    REQUEST_CODE_STORAGE_PERMISSION
+                )
+            } else {
+                selectImage()
+            }
         }
     }
 
@@ -162,7 +196,6 @@ class AddNoteActivity : AppCompatActivity() {
             dialogDeleteNote.show()
         }
 
-
         view.findViewById<Button>(R.id.delete_button).setOnClickListener {
             dialogDeleteNote.dismiss()
             viewModel.onDeletePressed(true)
@@ -170,6 +203,49 @@ class AddNoteActivity : AppCompatActivity() {
 
         view.findViewById<Button>(R.id.button_cancel).setOnClickListener {
             dialogDeleteNote.dismiss()
+        }
+    }
+
+    private fun selectImage() {
+        val intent =
+            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == REQUEST_CODE_STORAGE_PERMISSION && grantResults.isNotEmpty()) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                selectImage()
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK) {
+            if (data != null) {
+                val selectedImage: Uri? = data.data
+
+                selectedImage?.let {
+                    val inputStream: InputStream = contentResolver.openInputStream(selectedImage)!!
+                    val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
+
+                    binding.imageCover.setImageBitmap(bitmap)
+                    binding.imageCover.visibility = View.VISIBLE
+                }
+            }
         }
     }
 }

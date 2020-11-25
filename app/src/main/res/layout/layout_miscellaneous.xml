@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_miscellaneous"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,95 +22,13 @@
         android:text="@string/misc" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="@dimen/medium_margin">
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_margin">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:tint="@color/colorMiscOrange"
-                android:src="@drawable/ripple_add_note"/>
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_done"
-                android:padding="@dimen/margin"/>
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_margin">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:tint="@color/colorMiscPink"
-                android:src="@drawable/ripple_add_note"/>
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_done"
-                android:padding="@dimen/margin"/>
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_margin">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:tint="@color/colorMiscBlue"
-                android:src="@drawable/ripple_add_note"/>
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_done"
-                android:padding="@dimen/margin"/>
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_margin">
-
-            <ImageView
-                android:layout_width="35dp"
-                app:tint="@color/colorMiscGreen"
-                android:layout_height="35dp"
-                android:src="@drawable/ripple_add_note"/>
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_done"
-                android:padding="@dimen/margin"/>
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/bottomBarSelectableItem">
+        android:id="@+id/item_select_image"
+        style="@style/bottomBarSelectableItem"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/selectableItemImage"
+            android:contentDescription="@string/add_image_icon"
             android:src="@drawable/ic_image" />
 
         <TextView
@@ -117,10 +36,13 @@
             android:text="@string/add_img" />
     </LinearLayout>
 
-    <LinearLayout style="@style/bottomBarSelectableItem">
+    <LinearLayout
+        style="@style/bottomBarSelectableItem"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/selectableItemImage"
+            android:contentDescription="@string/add_link"
             android:src="@drawable/ic_web" />
 
         <TextView
@@ -128,10 +50,13 @@
             android:text="@string/add_link" />
     </LinearLayout>
 
-    <LinearLayout style="@style/bottomBarSelectableItem">
+    <LinearLayout
+        style="@style/bottomBarSelectableItem"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/selectableItemImage"
+            android:contentDescription="@string/make_copy"
             android:src="@drawable/ic_copy_alt" />
 
         <TextView
@@ -139,10 +64,13 @@
             android:text="@string/make_copy" />
     </LinearLayout>
 
-    <LinearLayout style="@style/bottomBarSelectableItem">
+    <LinearLayout
+        style="@style/bottomBarSelectableItem"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/selectableItemImage"
+            android:contentDescription="@string/share"
             android:src="@drawable/ic_share" />
 
         <TextView
@@ -151,9 +79,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/item_delete_note"
+        android:id="@+id/item_delete"
         style="@style/bottomBarSelectableItem"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/selectableItemImage"
