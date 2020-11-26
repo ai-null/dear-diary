@@ -97,6 +97,7 @@ class AddNoteActivity : AppCompatActivity() {
             if (it.imagePath != null) {
                 binding.imageCover.setImageBitmap(BitmapFactory.decodeFile(it.imagePath))
                 binding.imageCover.visibility = View.VISIBLE
+                selectedImagePath = it.imagePath
             }
         }
     }
