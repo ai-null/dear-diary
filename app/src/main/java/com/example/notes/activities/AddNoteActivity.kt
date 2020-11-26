@@ -31,11 +31,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.io.InputStream
 import java.lang.Exception
 
-
-private const val REQUEST_CODE_STORAGE_PERMISSION = 1
-private const val REQUEST_CODE_SELECT_IMAGE = 2
-
 class AddNoteActivity : AppCompatActivity() {
+
+    private val REQUEST_CODE_STORAGE_PERMISSION = 1
+    private val REQUEST_CODE_SELECT_IMAGE = 2
 
     private lateinit var binding: ActivityAddNoteBinding
     private lateinit var viewModel: AddNoteViewModel
@@ -43,7 +42,7 @@ class AddNoteActivity : AppCompatActivity() {
     private var id: Int = 0
     private lateinit var title: TextView
     private lateinit var content: TextView
-    private lateinit var selectedImagePath: String
+    private var selectedImagePath: String? = null
 
     private lateinit var dialogDeleteNote: AlertDialog
 
@@ -64,18 +63,7 @@ class AddNoteActivity : AppCompatActivity() {
 
         // Make sure to define extra intent after binding, since it used for set the data
         if (intent.hasExtra("update")) {
-            findViewById<LinearLayout>(R.id.item_delete).visibility = View.VISIBLE
-            intent.extras?.getParcelable<NoteEntity>("note")?.let {
-                id = it.id!!
-                title.text = it.title
-                binding.dateTime = it.dateTime
-                content.text = it.content
-
-                if (it.imagePath != null) {
-                    binding.imageCover.setImageBitmap(BitmapFactory.decodeFile(it.imagePath))
-                    binding.imageCover.visibility = View.VISIBLE
-                }
-            }
+            getUpdate()
         } else {
             binding.dateTime = viewModel.dateTime
         }
@@ -94,6 +82,22 @@ class AddNoteActivity : AppCompatActivity() {
                 viewModel.onSavePressed(SaveState.UPDATE)
             } else {
                 viewModel.onSavePressed(SaveState.SAVE)
+            }
+        }
+    }
+
+    private fun getUpdate() {
+        findViewById<LinearLayout>(R.id.item_delete).visibility = View.VISIBLE
+        intent.extras?.getParcelable<NoteEntity>("note")?.let {
+            id = it.id!!
+            title.text = it.title
+            binding.dateTime = it.dateTime
+            content.text = it.content
+
+            if (it.imagePath != null) {
+                binding.imageCover.setImageBitmap(BitmapFactory.decodeFile(it.imagePath))
+                binding.imageCover.visibility = View.VISIBLE
+                selectedImagePath = it.imagePath
             }
         }
     }
@@ -253,7 +257,6 @@ class AddNoteActivity : AppCompatActivity() {
                     val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
 
                     selectedImagePath = getSelectedImagePath(selectedImage)
-                    Log.i("selectedImagePath", selectedImagePath)
 
                     binding.imageCover.setImageBitmap(bitmap)
                     binding.imageCover.visibility = View.VISIBLE
