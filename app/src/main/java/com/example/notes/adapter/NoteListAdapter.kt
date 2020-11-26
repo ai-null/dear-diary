@@ -1,5 +1,6 @@
 package com.example.notes.adapter
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,8 @@ class NoteListAdapter(private val clickListener: NoteClickListener) :
             if (data.imagePath != null) {
                 binding.itemCover.setImageBitmap(BitmapFactory.decodeFile(data.imagePath))
                 binding.itemCover.visibility = View.VISIBLE
+            } else {
+                binding.itemCover.visibility = View.GONE
             }
         }
     }

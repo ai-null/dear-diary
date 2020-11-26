@@ -3,6 +3,7 @@ package com.example.notes.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
 import com.example.notes.adapter.NoteListAdapter
@@ -59,20 +60,15 @@ class MainActivity : AppCompatActivity() {
     private fun updateLiveData() {
         viewModel.notes.observe(this, {
             adapter.data = it
+            Log.i("adapter_data", "$it")
         })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_ADD_CODE) {
-                viewModel.getAllNotes()
-            }
-
-            if (requestCode == REQUEST_UPDATE_CODE) {
-                viewModel.getAllNotes()
-            }
+        if ((requestCode == REQUEST_ADD_CODE || requestCode == REQUEST_UPDATE_CODE) && resultCode == RESULT_OK) {
+            viewModel.getAllNotes()
         }
     }
 }
