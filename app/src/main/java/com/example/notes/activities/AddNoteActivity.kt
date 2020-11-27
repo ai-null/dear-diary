@@ -11,7 +11,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -29,12 +28,11 @@ import com.example.notes.entities.NoteEntity
 import com.example.notes.viewmodels.AddNoteViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.io.InputStream
-import java.lang.Exception
+
+private const val REQUEST_CODE_STORAGE_PERMISSION = 1
+private const val REQUEST_CODE_SELECT_IMAGE = 2
 
 class AddNoteActivity : AppCompatActivity() {
-
-    private val REQUEST_CODE_STORAGE_PERMISSION = 1
-    private val REQUEST_CODE_SELECT_IMAGE = 2
 
     private lateinit var binding: ActivityAddNoteBinding
     private lateinit var viewModel: AddNoteViewModel
@@ -106,18 +104,16 @@ class AddNoteActivity : AppCompatActivity() {
     private fun updateLiveData() {
         viewModel.saveState.observe(this, {
             it?.let {
-                try {
-                    saveFromViewModel()
-                } catch (e: Exception) {
-                    Log.i("Error", "${e.message}")
-                }
+                saveFromViewModel()
             }
         })
 
         viewModel.deleteState.observe(this, {
             it?.let {
                 viewModel.delete(id)
+
                 val intent = intent
+                intent.putExtra("noteDeleted", true)
                 setResult(RESULT_OK, intent)
                 finish()
             }
@@ -140,8 +136,7 @@ class AddNoteActivity : AppCompatActivity() {
                     )
                 )
 
-                val intent = intent
-                setResult(RESULT_OK, intent)
+                setResult(RESULT_OK)
                 finish()
             }
         }
@@ -160,11 +155,16 @@ class AddNoteActivity : AppCompatActivity() {
         ).show()
     }
 
+    /**
+     * Miscellaneous BottomSheet
+     * all functions on BottomSheet is stored in here
+     */
     private fun initMiscellaneous() {
         val miscellaneousLayout: View = binding.layoutMiscellaneous
         val bottomSheetBehavior: BottomSheetBehavior<View> =
             BottomSheetBehavior.from(miscellaneousLayout)
 
+        // Show / Hide bottom sheet bar
         miscellaneousLayout.findViewById<TextView>(R.id.bottom_sheet_title).setOnClickListener {
             if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -173,13 +173,16 @@ class AddNoteActivity : AppCompatActivity() {
             }
         }
 
+        // Delete Button
         miscellaneousLayout.findViewById<LinearLayout>(R.id.item_delete).setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             showDialogDeleteNote()
         }
 
+        // Select Image button
         miscellaneousLayout.findViewById<LinearLayout>(R.id.item_select_image).setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            // asking for permission the moment it clicked
             if (ContextCompat.checkSelfPermission(
                     applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE
                 ) != PackageManager.PERMISSION_GRANTED
@@ -220,6 +223,9 @@ class AddNoteActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Select image from storage
+     */
     private fun selectImage() {
         val intent =
             Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -227,6 +233,34 @@ class AddNoteActivity : AppCompatActivity() {
         if (intent.resolveActivity(packageManager) != null) {
             startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE)
         }
+    }
+
+    /**
+     * Get selected image path
+     *
+     * selected image from method above will passed here to extract the
+     * image's path
+     */
+    private fun getSelectedImagePath(contentUri: Uri): String {
+        val filePath: String
+        val cursor: Cursor? = contentResolver.query(
+            contentUri,
+            null,
+            null,
+            null,
+            null
+        )
+
+        if (cursor == null) {
+            filePath = contentUri.path!!
+        } else {
+            cursor.moveToFirst()
+            val index: Int = cursor.getColumnIndex("_data")
+            filePath = cursor.getString(index)
+            cursor.close()
+        }
+
+        return filePath
     }
 
     override fun onRequestPermissionsResult(
@@ -240,7 +274,7 @@ class AddNoteActivity : AppCompatActivity() {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 selectImage()
             } else {
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+                showToast("Permission Denied")
             }
         }
     }
@@ -263,27 +297,5 @@ class AddNoteActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun getSelectedImagePath(contentUri: Uri): String {
-        val filePath: String
-        val cursor: Cursor? = contentResolver.query(
-            contentUri,
-            null,
-            null,
-            null,
-            null
-        )
-
-        if (cursor == null) {
-            filePath = contentUri.path!!
-        } else {
-            cursor.moveToFirst()
-            val index: Int = cursor.getColumnIndex("_data")
-            filePath = cursor.getString(index)
-            cursor.close()
-        }
-
-        return filePath
     }
 }

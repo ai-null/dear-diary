@@ -13,28 +13,9 @@ class MainViewModel(context: Context) : ViewModel() {
 
     // job for threading
     private val job = SupervisorJob()
-    private val uiScope = CoroutineScope(job + Dispatchers.Main)
 
     // liveData
-    private val _notes = MutableLiveData<List<NoteEntity>>()
-    val notes: LiveData<List<NoteEntity>> get() = _notes
-
-    init {
-        getAllNotes()
-    }
-
-    fun getAllNotes() {
-        uiScope.launch {
-            val data = getNotesFromDB()
-            _notes.value = data
-        }
-    }
-
-    private suspend fun getNotesFromDB(): List<NoteEntity> {
-        return withContext(Dispatchers.IO) {
-            return@withContext database.getAllNotes()
-        }
-    }
+    val notes = database.getAllNotes()
 
     private suspend fun deleteAllNotesFromDB() {
         withContext(Dispatchers.IO) {
