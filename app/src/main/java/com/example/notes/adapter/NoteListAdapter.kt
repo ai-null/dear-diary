@@ -1,8 +1,6 @@
 package com.example.notes.adapter
 
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -45,16 +43,6 @@ class NoteListAdapter(private val clickListener: NoteClickListener) :
         fun bind(data: NoteEntity) {
             // set data to the xml
             binding.noteEntity = data
-
-            // Set image cover to the card conditions
-            // since ListAdapter will be used for RecyclerView, the else condition is important.
-            // TODO: make adapter binding to reduce the code here
-            if (data.imagePath != null) {
-                binding.itemCover.setImageBitmap(BitmapFactory.decodeFile(data.imagePath))
-                binding.itemCover.visibility = View.VISIBLE
-            } else {
-                binding.itemCover.visibility = View.GONE
-            }
             binding.executePendingBindings()
         }
     }

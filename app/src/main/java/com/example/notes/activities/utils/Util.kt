@@ -1,13 +1,19 @@
 package com.example.notes.activities.utils
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
+import java.io.InputStream
 
 /**
  * @param context Context
@@ -52,4 +58,32 @@ fun selectImage(activity: Activity, packageManager: PackageManager, requestCode:
     if (intent.resolveActivity(packageManager) != null) {
         startActivityForResult(activity, intent, requestCode, null)
     }
+}
+
+/**
+ * Get selected image path
+ *
+ * selected image from method above will passed here to extract the
+ * image's path
+ */
+fun getSelectedImagePath(contentResolver: ContentResolver, contentUri: Uri): String {
+    val filePath: String
+    val cursor: Cursor? = contentResolver.query(
+        contentUri,
+        null,
+        null,
+        null,
+        null
+    )
+
+    if (cursor == null) {
+        filePath = contentUri.path!!
+    } else {
+        cursor.moveToFirst()
+        val index: Int = cursor.getColumnIndex("_data")
+        filePath = cursor.getString(index)
+        cursor.close()
+    }
+
+    return filePath
 }

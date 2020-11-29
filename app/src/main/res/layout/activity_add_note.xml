@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.example.notes.viewmodels.AddNoteViewModel" />
+            name="noteEntity"
+            type="com.example.notes.entities.NoteEntity" />
+
+        <variable
+            name="pathname"
+            type="String" />
 
         <variable
             name="dateTime"
@@ -63,6 +67,7 @@
                     android:imeOptions="actionNext"
                     android:includeFontPadding="false"
                     android:inputType="text"
+                    android:text="@{noteEntity.title}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/back_button"
@@ -81,13 +86,14 @@
 
                 <ImageView
                     android:id="@+id/image_cover"
-                    android:contentDescription="@string/image_cover"
+                    setBitmapSource="@{pathname}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/medium_margin"
+                    android:layout_marginEnd="@dimen/medium_margin"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/image_cover"
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/note_date" />
 
@@ -103,11 +109,12 @@
                     android:hint="@string/content"
                     android:inputType="none"
                     android:lineHeight="30dp"
+                    android:paddingBottom="60dp"
+                    android:text="@{noteEntity.content}"
                     android:textColor="@android:color/secondary_text_light"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:paddingBottom="60dp"
                     app:layout_constraintTop_toBottomOf="@id/image_cover"
-                    tools:ignore="Autofill"
+                    tools:ignore="Autofill,UnusedAttribute"
                     tools:text="@tools:sample/lorem/random" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
