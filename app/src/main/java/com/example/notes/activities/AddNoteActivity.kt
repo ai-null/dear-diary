@@ -37,9 +37,7 @@ class AddNoteActivity : AppCompatActivity() {
     private var saveState: SaveState = SaveState.SAVE
 
     private var id: Int = 0
-    private lateinit var title: TextView
-    private lateinit var content: TextView
-    private var selectedImagePath: String? = null
+    private lateinit var selectedImagePath: String
 
     private lateinit var dialogDeleteNote: AlertDialog
 
@@ -54,11 +52,9 @@ class AddNoteActivity : AppCompatActivity() {
         // define binding & viewModel variable in the xml
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_note)
 
-        title = binding.noteTitle
-        content = binding.noteContent
-
         // Make sure to define extra intent after binding, since it used for set the data
-        if (intent.hasExtra("update")) {
+        if (!intent.hasExtra("update")) binding.dateTime = viewModel.dateTime
+        else {
             findViewById<LinearLayout>(R.id.item_delete).visibility = View.VISIBLE
             saveState = SaveState.UPDATE
 
@@ -68,12 +64,11 @@ class AddNoteActivity : AppCompatActivity() {
                 binding.dateTime = it.dateTime
                 binding.pathname = it.imagePath
 
-                if (it.imagePath != null) {
-                    selectedImagePath = it.imagePath
+                it.imagePath?.let { pathname ->
+                    selectedImagePath = pathname
                 }
             }
         }
-        else binding.dateTime = viewModel.dateTime
 
         // onClick back button
         binding.backButton.setOnClickListener {
@@ -93,7 +88,28 @@ class AddNoteActivity : AppCompatActivity() {
     private fun updateLiveData() {
         viewModel.saveState.observe(this, {
             it?.let {
-                saveFromViewModel()
+                val title = binding.noteTitle.text
+                val content = binding.noteContent.text
+
+                when (0) {
+                    title.length -> showToast(this, "Title can't be empty")
+                    content.length -> showToast(this, "Content can't be empty")
+
+                    else -> {
+                        viewModel.save(
+                            NoteEntity(
+                                id = intent.getParcelableExtra<NoteEntity>("note")?.id,
+                                title = title.toString(),
+                                content = content.toString(),
+                                imagePath = selectedImagePath,
+                                dateTime = viewModel.dateTime
+                            )
+                        )
+
+                        setResult(RESULT_OK)
+                        finish()
+                    }
+                }
             }
         })
 
@@ -107,28 +123,6 @@ class AddNoteActivity : AppCompatActivity() {
                 finish()
             }
         })
-    }
-
-    private fun saveFromViewModel() {
-        when (0) {
-            title.text.length -> showToast(this, "Title can't be empty")
-            content.text.length -> showToast(this, "Content can't be empty")
-
-            else -> {
-                viewModel.save(
-                    NoteEntity(
-                        id = intent.getParcelableExtra<NoteEntity>("note")?.id,
-                        title = title.text.toString(),
-                        content = content.text.toString(),
-                        imagePath = selectedImagePath,
-                        dateTime = viewModel.dateTime
-                    )
-                )
-
-                setResult(RESULT_OK)
-                finish()
-            }
-        }
     }
 
     /**
