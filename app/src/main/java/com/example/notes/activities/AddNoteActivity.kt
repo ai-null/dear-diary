@@ -16,12 +16,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import com.example.notes.activities.utils.checkPermission
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
+import com.example.notes.activities.utils.showToast
 import com.example.notes.database.SaveState
 import com.example.notes.databinding.ActivityAddNoteBinding
 import com.example.notes.entities.NoteEntity
@@ -122,8 +122,8 @@ class AddNoteActivity : AppCompatActivity() {
 
     private fun saveFromViewModel() {
         when (0) {
-            title.text.length -> showToast("Title can't be empty")
-            content.text.length -> showToast("Content can't be empty")
+            title.text.length -> showToast(this, "Title can't be empty")
+            content.text.length -> showToast(this, "Content can't be empty")
 
             else -> {
                 viewModel.save(
@@ -140,19 +140,6 @@ class AddNoteActivity : AppCompatActivity() {
                 finish()
             }
         }
-    }
-
-    /**
-     * @param message String
-     *
-     * Simple show-toast function to reduce code
-     */
-    private fun showToast(message: String) {
-        Toast.makeText(
-            this,
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     /**
@@ -183,10 +170,7 @@ class AddNoteActivity : AppCompatActivity() {
         miscellaneousLayout.findViewById<LinearLayout>(R.id.item_select_image).setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             // asking for permission the moment it clicked
-            if (ContextCompat.checkSelfPermission(
-                    applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
+            if (checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -274,7 +258,7 @@ class AddNoteActivity : AppCompatActivity() {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 selectImage()
             } else {
-                showToast("Permission Denied")
+                showToast(this, "Permission Denied")
             }
         }
     }

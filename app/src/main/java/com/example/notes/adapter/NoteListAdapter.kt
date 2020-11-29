@@ -35,7 +35,7 @@ class NoteListAdapter(private val clickListener: NoteClickListener) :
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            clickListener.onClick(item, position)
+            clickListener.onClick(item)
         }
     }
 
@@ -43,7 +43,12 @@ class NoteListAdapter(private val clickListener: NoteClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: NoteEntity) {
+            // set data to the xml
             binding.noteEntity = data
+
+            // Set image cover to the card conditions
+            // since ListAdapter will be used for RecyclerView, the else condition is important.
+            // TODO: make adapter binding to reduce the code here
             if (data.imagePath != null) {
                 binding.itemCover.setImageBitmap(BitmapFactory.decodeFile(data.imagePath))
                 binding.itemCover.visibility = View.VISIBLE
