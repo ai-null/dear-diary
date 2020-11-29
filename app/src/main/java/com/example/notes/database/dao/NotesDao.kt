@@ -1,12 +1,13 @@
 package com.example.notes.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.notes.entities.NoteEntity
 
 @Dao
 interface NotesDao {
     @Query("SELECT * FROM notes")
-    fun getAllNotes(): List<NoteEntity>
+    fun getAllNotes(): LiveData<List<NoteEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addNote(note: NoteEntity)

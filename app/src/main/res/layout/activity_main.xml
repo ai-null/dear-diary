@@ -91,24 +91,30 @@
 
 
             <ImageView
+                android:id="@+id/quick_add_notes"
                 style="@style/quickActionButton"
                 android:contentDescription="@string/add_circle_icon"
                 android:src="@drawable/ic_round_add_circle"
-                android:tooltipText="Make a note" />
+                android:tooltipText="Make a note"
+                tools:ignore="UnusedAttribute" />
 
             <ImageView
+                android:id="@+id/quick_add_image"
                 style="@style/quickActionButton"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@string/add_image_icon"
                 android:src="@drawable/ic_image"
-                android:tooltipText="@string/add_img" />
+                android:tooltipText="@string/add_img"
+                tools:ignore="UnusedAttribute" />
 
             <ImageView
+                android:id="@+id/quick_add_link"
                 style="@style/quickActionButton"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@string/add_link_icon"
                 android:src="@drawable/ic_web"
-                android:tooltipText="@string/add_link" />
+                android:tooltipText="@string/add_link"
+                tools:ignore="UnusedAttribute" />
         </LinearLayout>
 
         <ImageButton
