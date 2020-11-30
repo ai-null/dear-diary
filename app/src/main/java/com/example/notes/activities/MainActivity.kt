@@ -1,16 +1,20 @@
 package com.example.notes.activities
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
-import com.example.notes.activities.utils.checkPermission
-import com.example.notes.activities.utils.selectImage
-import com.example.notes.activities.utils.showToast
+import com.example.notes.utils.checkPermission
+import com.example.notes.utils.selectImage
+import com.example.notes.utils.showToast
 import com.example.notes.adapter.NoteListAdapter
 import com.example.notes.adapter.listener.NoteClickListener
 import com.example.notes.databinding.ActivityMainBinding
@@ -20,7 +24,7 @@ import com.example.notes.viewmodels.MainViewModel
 
 // REQUEST CODES FOR CHANGING SCREEN
 private const val REQUEST_CODE_STORAGE_PERMISSION: Int = 1
-private const val REQUEST_CODE_SELECT_IMAGE: Int = 2
+// private const val REQUEST_CODE_SELECT_IMAGE: Int = 2
 
 class MainActivity : AppCompatActivity(), NoteClickListener {
 
@@ -60,6 +64,28 @@ class MainActivity : AppCompatActivity(), NoteClickListener {
 
     private fun quickActions() {
         binding.quickAddImage.setOnClickListener {
+            showChooseImageDialog()
+        }
+    }
+
+    private fun showChooseImageDialog() {
+        val dialog = AlertDialog.Builder(this)
+        val view = LayoutInflater.from(this).inflate(
+            R.layout.dialog_choose_image,
+            findViewById(R.id.dialog_choose_image_container)
+        )
+        dialog.setView(view)
+
+        val chooseImageDialog = dialog.create()
+        val takePhotoButton: LinearLayout = view.findViewById(R.id.item_take_photo)
+        val chooseImageButton: LinearLayout = view.findViewById(R.id.item_choose_image)
+
+        chooseImageDialog.window?.let {
+            it.setBackgroundDrawable(ColorDrawable(0))
+            chooseImageDialog.show()
+        }
+
+        chooseImageButton.setOnClickListener {
             if (checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 ActivityCompat.requestPermissions(
                     this,
@@ -69,6 +95,12 @@ class MainActivity : AppCompatActivity(), NoteClickListener {
             } else {
                 selectImage(this, packageManager, REQUEST_CODE_STORAGE_PERMISSION)
             }
+            chooseImageDialog.dismiss()
+        }
+
+        takePhotoButton.setOnClickListener {
+            showToast(this, "still under development")
+            chooseImageDialog.dismiss()
         }
     }
 

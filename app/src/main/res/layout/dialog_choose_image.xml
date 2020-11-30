@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_choose_image_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/medium_margin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:gravity="center|start"
+            android:text="@string/dialog_image_title"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialog_title">
+
+            <LinearLayout
+                android:id="@+id/item_choose_image"
+                style="@style/bottomBarSelectableItem"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    style="@style/selectableItemImage"
+                    android:contentDescription="@string/add_image_icon"
+                    android:src="@drawable/ic_image" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+                    android:text="Choose image" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/item_take_photo"
+                style="@style/bottomBarSelectableItem"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    style="@style/selectableItemImage"
+                    android:contentDescription="@string/add_link"
+                    android:src="@drawable/ic_outline_camera" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+                    android:text="Take a photo" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -14,12 +14,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import com.example.notes.activities.utils.checkPermission
+import com.example.notes.utils.checkPermission
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
-import com.example.notes.activities.utils.getSelectedImagePath
-import com.example.notes.activities.utils.selectImage
-import com.example.notes.activities.utils.showToast
+import com.example.notes.utils.getSelectedImagePath
+import com.example.notes.utils.selectImage
+import com.example.notes.utils.showToast
 import com.example.notes.database.SaveState
 import com.example.notes.databinding.ActivityAddNoteBinding
 import com.example.notes.entities.NoteEntity
@@ -37,7 +37,7 @@ class AddNoteActivity : AppCompatActivity() {
     private var saveState: SaveState = SaveState.SAVE
 
     private var id: Int = 0
-    private lateinit var selectedImagePath: String
+    private var selectedImagePath: String? = null
 
     private lateinit var dialogDeleteNote: AlertDialog
 

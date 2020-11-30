@@ -1,4 +1,4 @@
-package com.example.notes.activities.utils
+package com.example.notes.utils
 
 import android.graphics.BitmapFactory
 import android.widget.ImageView
