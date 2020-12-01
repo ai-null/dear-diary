@@ -152,22 +152,13 @@ class AddNoteActivity : AppCompatActivity() {
         // Select Image button
         miscellaneousLayout.findViewById<LinearLayout>(R.id.item_select_image).setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            // asking for permission the moment it clicked
-            if (checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    REQUEST_CODE_STORAGE_PERMISSION
-                )
-            } else {
-                selectImage(this, packageManager, REQUEST_CODE_SELECT_IMAGE)
-            }
+            showChooseImageDialog()
         }
     }
 
     /**
      * Dialog delete
-     * it contains imageCover, a description and two buttons
+     * this AlertDialog is used for deleting an item
      */
     private fun showDialogDeleteNote() {
         val view = LayoutInflater.from(this).inflate(
@@ -191,6 +182,49 @@ class AddNoteActivity : AppCompatActivity() {
 
         view.findViewById<Button>(R.id.button_cancel).setOnClickListener {
             dialogDeleteNote.dismiss()
+        }
+    }
+
+    /**
+     * showChooseImageDialog
+     *  this AlertDialog is used for choosing between
+     *  browse an image from FileManager or Take a photo
+     *
+     * TODO: make take a photo
+     */
+    private fun showChooseImageDialog() {
+        val dialog = android.app.AlertDialog.Builder(this)
+        val view = LayoutInflater.from(this).inflate(
+            R.layout.dialog_choose_image,
+            findViewById(R.id.dialog_choose_image_container)
+        )
+        dialog.setView(view)
+
+        val chooseImageDialog = dialog.create()
+        val takePhotoButton: LinearLayout = view.findViewById(R.id.item_take_photo)
+        val chooseImageButton: LinearLayout = view.findViewById(R.id.item_choose_image)
+
+        chooseImageDialog.window?.let {
+            it.setBackgroundDrawable(ColorDrawable(0))
+            chooseImageDialog.show()
+        }
+
+        chooseImageButton.setOnClickListener {
+            if (checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    REQUEST_CODE_STORAGE_PERMISSION
+                )
+            } else {
+                selectImage(this, packageManager, REQUEST_CODE_STORAGE_PERMISSION)
+            }
+            chooseImageDialog.dismiss()
+        }
+
+        takePhotoButton.setOnClickListener {
+            showToast(this, "still under development")
+            chooseImageDialog.dismiss()
         }
     }
 

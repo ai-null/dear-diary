@@ -20,8 +20,8 @@ import androidx.core.content.ContextCompat
  *
  * Simple show-toast function to reduce code
  */
-fun showToast(context: Context, message: String) {
-    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+fun showToast(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(context, message, duration).show()
 }
 
 /**
