@@ -1,21 +1,23 @@
 package com.example.notes.activities
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import com.example.notes.utils.isPermitted
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
@@ -27,7 +29,11 @@ import com.example.notes.databinding.ActivityAddNoteBinding
 import com.example.notes.entities.NoteEntity
 import com.example.notes.viewmodels.AddNoteViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import java.lang.Exception
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.jvm.Throws
 
 // CONSTANTS
 private const val REQUEST_CODE_STORAGE_PERMISSION = 1
@@ -43,7 +49,7 @@ class AddNoteActivity : AppCompatActivity() {
     private var saveState: SaveState = SaveState.SAVE
 
     private var id: Int = 0
-    private var selectedImagePath: String? = null
+    private var currentPhotoPath: String? = null
 
     private lateinit var dialogDeleteNote: AlertDialog
 
@@ -71,7 +77,7 @@ class AddNoteActivity : AppCompatActivity() {
                 binding.pathname = it.imagePath
 
                 it.imagePath?.let { pathname ->
-                    selectedImagePath = pathname
+                    currentPhotoPath = pathname
                 }
             }
         }
@@ -107,7 +113,7 @@ class AddNoteActivity : AppCompatActivity() {
                                 id = intent.getParcelableExtra<NoteEntity>("note")?.id,
                                 title = title.toString(),
                                 content = content.toString(),
-                                imagePath = selectedImagePath,
+                                imagePath = currentPhotoPath,
                                 dateTime = viewModel.dateTime
                             )
                         )
@@ -195,8 +201,6 @@ class AddNoteActivity : AppCompatActivity() {
      * showChooseImageDialog
      *  this AlertDialog is used for choosing between
      *  browse an image from FileManager or Take a photo
-     *
-     * TODO: make take a photo
      */
     private fun showChooseImageDialog() {
         val dialog = android.app.AlertDialog.Builder(this)
@@ -230,7 +234,7 @@ class AddNoteActivity : AppCompatActivity() {
 
         takePhotoButton.setOnClickListener {
             if (isPermitted(this, Manifest.permission.CAMERA)) {
-                launchCamera()
+                dispatchTakePictureIntent()
             } else {
                 ActivityCompat.requestPermissions(
                     this,
@@ -242,13 +246,49 @@ class AddNoteActivity : AppCompatActivity() {
         }
     }
 
-    private fun launchCamera() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        try {
-            startActivityForResult(takePictureIntent, REQUEST_CODE_TAKE_PICTURE)
-        } catch (e: Exception) {
-            e.message?.let {
-                showToast(this, it, Toast.LENGTH_LONG)
+//    private fun launchCamera() {
+//        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        try {
+//            startActivityForResult(takePictureIntent, REQUEST_CODE_TAKE_PICTURE)
+//        } catch (e: Exception) {
+//            e.message?.let {
+//                showToast(this, it, Toast.LENGTH_LONG)
+//            }
+//        }
+//    }
+
+    @SuppressLint("SimpleDateFormat")
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timestamp}",
+            ".jpg",
+            storageDir
+        ).apply {
+            currentPhotoPath = absolutePath
+        }
+    }
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(packageManager).also {
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (e: IOException) {
+                    null
+                }
+
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        this,
+                        "com.example.notes.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, REQUEST_CODE_TAKE_PICTURE)
+                }
             }
         }
     }
@@ -272,7 +312,7 @@ class AddNoteActivity : AppCompatActivity() {
 
                 REQUEST_CODE_CAMERA_PERMISSION -> {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        launchCamera()
+                        dispatchTakePictureIntent()
                     } else {
                         showToast(this, "Permission Denied")
                     }
@@ -284,13 +324,22 @@ class AddNoteActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK) {
-            if (data != null) {
-                val selectedImage: Uri? = data.data
 
-                selectedImage?.let {
-                    selectedImagePath = getSelectedImagePath(contentResolver, selectedImage)
-                    binding.pathname = selectedImagePath
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE_SELECT_IMAGE -> {
+                    if (data != null) {
+                        val selectedImage: Uri? = data.data
+
+                        selectedImage?.let {
+                            currentPhotoPath = getSelectedImagePath(contentResolver, selectedImage)
+                            binding.pathname = currentPhotoPath
+                        }
+                    }
+                }
+
+                REQUEST_CODE_TAKE_PICTURE -> {
+                    binding.pathname = currentPhotoPath
                 }
             }
         }
