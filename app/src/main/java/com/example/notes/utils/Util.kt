@@ -31,7 +31,7 @@ fun showToast(context: Context, message: String, duration: Int = Toast.LENGTH_SH
  *
  * @return Boolean
  */
-fun checkPermission(context: Context, permission: String): Boolean {
+fun isPermitted(context: Context, permission: String): Boolean {
     return ContextCompat.checkSelfPermission(
         context,
         permission

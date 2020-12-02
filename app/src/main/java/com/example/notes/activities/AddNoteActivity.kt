@@ -7,14 +7,16 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import com.example.notes.utils.checkPermission
+import com.example.notes.utils.isPermitted
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
 import com.example.notes.utils.getSelectedImagePath
@@ -25,9 +27,13 @@ import com.example.notes.databinding.ActivityAddNoteBinding
 import com.example.notes.entities.NoteEntity
 import com.example.notes.viewmodels.AddNoteViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import java.lang.Exception
 
+// CONSTANTS
 private const val REQUEST_CODE_STORAGE_PERMISSION = 1
 private const val REQUEST_CODE_SELECT_IMAGE = 2
+private const val REQUEST_CODE_CAMERA_PERMISSION = 3
+private const val REQUEST_CODE_TAKE_PICTURE = 4
 
 class AddNoteActivity : AppCompatActivity() {
 
@@ -210,21 +216,40 @@ class AddNoteActivity : AppCompatActivity() {
         }
 
         chooseImageButton.setOnClickListener {
-            if (checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (isPermitted(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                selectImage(this, packageManager, REQUEST_CODE_SELECT_IMAGE)
+            } else {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                     REQUEST_CODE_STORAGE_PERMISSION
                 )
-            } else {
-                selectImage(this, packageManager, REQUEST_CODE_STORAGE_PERMISSION)
             }
             chooseImageDialog.dismiss()
         }
 
         takePhotoButton.setOnClickListener {
-            showToast(this, "still under development")
+            if (isPermitted(this, Manifest.permission.CAMERA)) {
+                launchCamera()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.CAMERA),
+                    REQUEST_CODE_CAMERA_PERMISSION
+                )
+            }
             chooseImageDialog.dismiss()
+        }
+    }
+
+    private fun launchCamera() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_CODE_TAKE_PICTURE)
+        } catch (e: Exception) {
+            e.message?.let {
+                showToast(this, it, Toast.LENGTH_LONG)
+            }
         }
     }
 
@@ -235,11 +260,23 @@ class AddNoteActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == REQUEST_CODE_STORAGE_PERMISSION && grantResults.isNotEmpty()) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                selectImage(this, packageManager, REQUEST_CODE_SELECT_IMAGE)
-            } else {
-                showToast(this, "Permission Denied")
+        if (grantResults.isNotEmpty()) {
+            when (requestCode) {
+                REQUEST_CODE_STORAGE_PERMISSION -> {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        selectImage(this, packageManager, REQUEST_CODE_SELECT_IMAGE)
+                    } else {
+                        showToast(this, "Permission Denied")
+                    }
+                }
+
+                REQUEST_CODE_CAMERA_PERMISSION -> {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        launchCamera()
+                    } else {
+                        showToast(this, "Permission Denied")
+                    }
+                }
             }
         }
     }
