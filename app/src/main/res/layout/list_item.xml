@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <ImageView
-                setBitmapSource="@{noteEntity.imagePath}"
+                setImageSource="@{noteEntity.imagePath}"
                 android:id="@+id/item_cover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -42,34 +42,6 @@
 
         <ImageView
             style="@style/selectableItemImage"
-            android:contentDescription="@string/add_link"
-            android:src="@drawable/ic_web" />
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
-            android:text="@string/add_link" />
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/bottomBarSelectableItem"
-        tools:ignore="UseCompoundDrawables">
-
-        <ImageView
-            style="@style/selectableItemImage"
-            android:contentDescription="@string/make_copy"
-            android:src="@drawable/ic_copy_alt" />
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
-            android:text="@string/make_copy" />
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/bottomBarSelectableItem"
-        tools:ignore="UseCompoundDrawables">
-
-        <ImageView
-            style="@style/selectableItemImage"
             android:contentDescription="@string/share"
             android:src="@drawable/ic_share" />
 

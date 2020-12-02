@@ -47,9 +47,7 @@ class AddNoteActivity : AppCompatActivity() {
     private lateinit var viewModel: AddNoteViewModel
 
     private var saveState: SaveState = SaveState.SAVE
-
     private var id: Int = 0
-    private var currentPhotoPath: String? = null
 
     private lateinit var dialogDeleteNote: AlertDialog
 
@@ -63,6 +61,8 @@ class AddNoteActivity : AppCompatActivity() {
 
         // define binding & viewModel variable in the xml
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_note)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
         // Make sure to define extra intent after binding, since it used for set the data
         if (!intent.hasExtra("update")) binding.dateTime = viewModel.dateTime
@@ -74,11 +74,7 @@ class AddNoteActivity : AppCompatActivity() {
                 id = it.id!!
                 binding.noteEntity = it
                 binding.dateTime = it.dateTime
-                binding.pathname = it.imagePath
-
-                it.imagePath?.let { pathname ->
-                    currentPhotoPath = pathname
-                }
+                viewModel.updateCurrentPhotoPath(it.imagePath)
             }
         }
 
@@ -113,13 +109,13 @@ class AddNoteActivity : AppCompatActivity() {
                                 id = intent.getParcelableExtra<NoteEntity>("note")?.id,
                                 title = title.toString(),
                                 content = content.toString(),
-                                imagePath = currentPhotoPath,
+                                imagePath = viewModel.pathname.value,
                                 dateTime = viewModel.dateTime
                             )
-                        )
-
-                        setResult(RESULT_OK)
-                        finish()
+                        ).apply {
+                            setResult(RESULT_OK)
+                            finish()
+                        }
                     }
                 }
             }
@@ -267,7 +263,7 @@ class AddNoteActivity : AppCompatActivity() {
             ".jpg",
             storageDir
         ).apply {
-            currentPhotoPath = absolutePath
+            viewModel.updateCurrentPhotoPath(absolutePath)
         }
     }
 
@@ -332,14 +328,10 @@ class AddNoteActivity : AppCompatActivity() {
                         val selectedImage: Uri? = data.data
 
                         selectedImage?.let {
-                            currentPhotoPath = getSelectedImagePath(contentResolver, selectedImage)
-                            binding.pathname = currentPhotoPath
+                            val path = getSelectedImagePath(contentResolver, selectedImage)
+                            viewModel.updateCurrentPhotoPath(path)
                         }
                     }
-                }
-
-                REQUEST_CODE_TAKE_PICTURE -> {
-                    binding.pathname = currentPhotoPath
                 }
             }
         }

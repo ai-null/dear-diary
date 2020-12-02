@@ -10,8 +10,8 @@
             type="com.example.notes.entities.NoteEntity" />
 
         <variable
-            name="pathname"
-            type="String" />
+            name="viewModel"
+            type="com.example.notes.viewmodels.AddNoteViewModel" />
 
         <variable
             name="dateTime"
@@ -86,7 +86,7 @@
 
                 <ImageView
                     android:id="@+id/image_cover"
-                    setBitmapSource="@{pathname}"
+                    setImageSource="@{viewModel.pathname}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/medium_margin"
@@ -95,7 +95,28 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/image_cover"
                     android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/note_date" />
+                    app:layout_constraintTop_toBottomOf="@id/note_date"
+                    tools:src="@drawable/ainul2"
+                    tools:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/button_delete_cover"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="@dimen/margin"
+                    android:background="@drawable/ripple_add_note"
+                    android:backgroundTint="@color/colorRed"
+                    android:clickable="true"
+                    android:focusable="true"
+                    setImageSource="@{viewModel.pathname}"
+                    android:padding="@dimen/margin"
+                    android:src="@drawable/ic_delete"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/image_cover"
+                    app:layout_constraintTop_toTopOf="@id/image_cover"
+                    app:tint="@color/colorWhite"
+                    tools:ignore="ContentDescription"
+                    tools:visibility="visible" />
 
                 <EditText
                     android:id="@+id/note_content"
