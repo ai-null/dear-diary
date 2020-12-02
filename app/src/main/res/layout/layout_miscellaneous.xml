@@ -37,6 +37,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/item_share"
         style="@style/bottomBarSelectableItem"
         tools:ignore="UseCompoundDrawables">
 

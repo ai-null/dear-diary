@@ -17,6 +17,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import com.example.notes.utils.isPermitted
 import androidx.databinding.DataBindingUtil
@@ -165,6 +166,17 @@ class AddNoteActivity : AppCompatActivity() {
         miscellaneousLayout.findViewById<LinearLayout>(R.id.item_select_image).setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             showChooseImageDialog()
+        }
+
+        miscellaneousLayout.findViewById<LinearLayout>(R.id.item_share).setOnClickListener {
+            intent.extras?.getParcelable<NoteEntity>("note")?.let {
+                val shareIntent: Intent = ShareCompat.IntentBuilder.from(this)
+                    .setText("Title: ${it.title}\nDate: ${it.dateTime}\n\nContent: ${it.content}")
+                    .setType("text/plain")
+                    .intent
+
+                startActivity(shareIntent)
+            }
         }
     }
 
