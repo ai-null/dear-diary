@@ -30,10 +30,25 @@ class AddNoteViewModel(app: Application) : ViewModel() {
     // LiveData - Private
     private val _saveState = MutableLiveData<SaveState>()
     private val _deleteState = MutableLiveData<Boolean>()
+    private val _pathname = MutableLiveData<String?>()
 
     // Public
     val saveState: LiveData<SaveState> get() = _saveState
     val deleteState: LiveData<Boolean> get() = _deleteState
+    val pathname: LiveData<String?> get() = _pathname
+
+    init {
+        _pathname.value = null
+    }
+
+    /**
+     * @param path String
+     *
+     * This method holds current photo path to show to the user.
+     */
+    fun updateCurrentPhotoPath(path: String?) {
+        _pathname.value = path
+    }
 
     /**
      * @param data NoteEntity

@@ -1,9 +1,12 @@
-package com.example.notes.activities.utils
+package com.example.notes.utils
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.net.Uri
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.startActivityForResult
@@ -17,8 +20,8 @@ import androidx.core.content.ContextCompat
  *
  * Simple show-toast function to reduce code
  */
-fun showToast(context: Context, message: String) {
-    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+fun showToast(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(context, message, duration).show()
 }
 
 /**
@@ -28,7 +31,7 @@ fun showToast(context: Context, message: String) {
  *
  * @return Boolean
  */
-fun checkPermission(context: Context, permission: String): Boolean {
+fun isPermitted(context: Context, permission: String): Boolean {
     return ContextCompat.checkSelfPermission(
         context,
         permission
@@ -52,4 +55,32 @@ fun selectImage(activity: Activity, packageManager: PackageManager, requestCode:
     if (intent.resolveActivity(packageManager) != null) {
         startActivityForResult(activity, intent, requestCode, null)
     }
+}
+
+/**
+ * Get selected image path
+ *
+ * selected image from method above will passed here to extract the
+ * image's path
+ */
+fun getSelectedImagePath(contentResolver: ContentResolver, contentUri: Uri): String {
+    val filePath: String
+    val cursor: Cursor? = contentResolver.query(
+        contentUri,
+        null,
+        null,
+        null,
+        null
+    )
+
+    if (cursor == null) {
+        filePath = contentUri.path!!
+    } else {
+        cursor.moveToFirst()
+        val index: Int = cursor.getColumnIndex("_data")
+        filePath = cursor.getString(index)
+        cursor.close()
+    }
+
+    return filePath
 }

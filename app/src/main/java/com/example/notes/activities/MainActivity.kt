@@ -1,26 +1,15 @@
 package com.example.notes.activities
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
-import com.example.notes.activities.utils.checkPermission
-import com.example.notes.activities.utils.selectImage
-import com.example.notes.activities.utils.showToast
 import com.example.notes.adapter.NoteListAdapter
 import com.example.notes.adapter.listener.NoteClickListener
 import com.example.notes.databinding.ActivityMainBinding
 import com.example.notes.entities.NoteEntity
 import com.example.notes.viewmodels.MainViewModel
-
-
-// REQUEST CODES FOR CHANGING SCREEN
-private const val REQUEST_CODE_STORAGE_PERMISSION: Int = 1
-private const val REQUEST_CODE_SELECT_IMAGE: Int = 2
 
 class MainActivity : AppCompatActivity(), NoteClickListener {
 
@@ -53,38 +42,6 @@ class MainActivity : AppCompatActivity(), NoteClickListener {
         // add button onClick
         binding.addNotes.setOnClickListener {
             startActivity(Intent(applicationContext, AddNoteActivity::class.java))
-        }
-
-        quickActions()
-    }
-
-    private fun quickActions() {
-        binding.quickAddImage.setOnClickListener {
-            if (checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    REQUEST_CODE_STORAGE_PERMISSION
-                )
-            } else {
-                selectImage(this, packageManager, REQUEST_CODE_STORAGE_PERMISSION)
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == REQUEST_CODE_STORAGE_PERMISSION == grantResults.isNotEmpty()) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                selectImage(this, packageManager, REQUEST_CODE_STORAGE_PERMISSION)
-            } else {
-                showToast(this, "Permission denied!")
-            }
         }
     }
 

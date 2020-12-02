@@ -63,10 +63,10 @@
             android:id="@+id/note_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="13dp"
             android:clipToPadding="false"
+            android:padding="13dp"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/action_bar_container"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_container"
@@ -74,54 +74,12 @@
             tools:itemCount="2"
             tools:listitem="@layout/list_item" />
 
-        <LinearLayout
-            android:id="@+id/action_bar_container"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:background="@drawable/background_actionbar"
-            android:elevation="3dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:paddingStart="11dp"
-            android:paddingEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-
-            <ImageView
-                android:id="@+id/quick_add_notes"
-                style="@style/quickActionButton"
-                android:contentDescription="@string/add_circle_icon"
-                android:src="@drawable/ic_round_add_circle"
-                android:tooltipText="Make a note"
-                tools:ignore="UnusedAttribute" />
-
-            <ImageView
-                android:id="@+id/quick_add_image"
-                style="@style/quickActionButton"
-                android:layout_marginStart="10dp"
-                android:contentDescription="@string/add_image_icon"
-                android:src="@drawable/ic_image"
-                android:tooltipText="@string/add_img"
-                tools:ignore="UnusedAttribute" />
-
-            <ImageView
-                android:id="@+id/quick_add_link"
-                style="@style/quickActionButton"
-                android:layout_marginStart="10dp"
-                android:contentDescription="@string/add_link_icon"
-                android:src="@drawable/ic_web"
-                android:tooltipText="@string/add_link"
-                tools:ignore="UnusedAttribute" />
-        </LinearLayout>
-
         <ImageButton
             android:id="@+id/add_notes"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginBottom="35dp"
             android:background="@drawable/ripple_add_note"
             android:clickable="true"
             android:contentDescription="@string/add_notes_button"
@@ -129,9 +87,8 @@
             android:focusable="true"
             android:padding="8dp"
             android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toTopOf="@id/action_bar_container"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/action_bar_container"
             app:tint="@color/colorIcon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

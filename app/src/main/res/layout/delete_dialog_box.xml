@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_delete_note_container"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     app:cardCornerRadius="@dimen/margin"
-    tools:layout_marginHorizontal="@dimen/medium_margin"
-    tools:layout_width="match_parent">
+    tools:layout_marginHorizontal="@dimen/medium_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

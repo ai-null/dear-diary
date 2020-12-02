@@ -1,15 +1,14 @@
 package com.example.notes.activities
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -18,29 +17,38 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import com.example.notes.activities.utils.checkPermission
+import androidx.core.app.ShareCompat
+import androidx.core.content.FileProvider
+import com.example.notes.utils.isPermitted
 import androidx.databinding.DataBindingUtil
 import com.example.notes.R
-import com.example.notes.activities.utils.showToast
+import com.example.notes.utils.getSelectedImagePath
+import com.example.notes.utils.selectImage
+import com.example.notes.utils.showToast
 import com.example.notes.database.SaveState
 import com.example.notes.databinding.ActivityAddNoteBinding
 import com.example.notes.entities.NoteEntity
 import com.example.notes.viewmodels.AddNoteViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import java.io.InputStream
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.jvm.Throws
 
+// CONSTANTS
 private const val REQUEST_CODE_STORAGE_PERMISSION = 1
 private const val REQUEST_CODE_SELECT_IMAGE = 2
+private const val REQUEST_CODE_CAMERA_PERMISSION = 3
+private const val REQUEST_CODE_TAKE_PICTURE = 4
 
 class AddNoteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddNoteBinding
     private lateinit var viewModel: AddNoteViewModel
 
+    private var saveState: SaveState = SaveState.SAVE
     private var id: Int = 0
-    private lateinit var title: TextView
-    private lateinit var content: TextView
-    private var selectedImagePath: String? = null
 
     private lateinit var dialogDeleteNote: AlertDialog
 
@@ -54,20 +62,22 @@ class AddNoteActivity : AppCompatActivity() {
 
         // define binding & viewModel variable in the xml
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_note)
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        title = binding.noteTitle
-        content = binding.noteContent
-
         // Make sure to define extra intent after binding, since it used for set the data
-        if (intent.hasExtra("update")) {
-            getUpdate()
-        } else {
-            binding.dateTime = viewModel.dateTime
-        }
+        if (!intent.hasExtra("update")) binding.dateTime = viewModel.dateTime
+        else {
+            findViewById<LinearLayout>(R.id.item_delete).visibility = View.VISIBLE
+            saveState = SaveState.UPDATE
 
-        updateLiveData()
-        initMiscellaneous()
+            intent.extras?.getParcelable<NoteEntity>("note")?.let {
+                id = it.id!!
+                binding.noteEntity = it
+                binding.dateTime = it.dateTime
+                viewModel.updateCurrentPhotoPath(it.imagePath)
+            }
+        }
 
         // onClick back button
         binding.backButton.setOnClickListener {
@@ -76,35 +86,43 @@ class AddNoteActivity : AppCompatActivity() {
 
         // onClick save button
         binding.saveButton.setOnClickListener {
-            if (intent.hasExtra("update")) {
-                viewModel.onSavePressed(SaveState.UPDATE)
-            } else {
-                viewModel.onSavePressed(SaveState.SAVE)
-            }
+            viewModel.onSavePressed(saveState)
         }
-    }
 
-    private fun getUpdate() {
-        findViewById<LinearLayout>(R.id.item_delete).visibility = View.VISIBLE
-        intent.extras?.getParcelable<NoteEntity>("note")?.let {
-            id = it.id!!
-            title.text = it.title
-            binding.dateTime = it.dateTime
-            content.text = it.content
-
-            if (it.imagePath != null) {
-                binding.imageCover.setImageBitmap(BitmapFactory.decodeFile(it.imagePath))
-                binding.imageCover.visibility = View.VISIBLE
-                selectedImagePath = it.imagePath
-            }
+        binding.buttonDeleteCover.setOnClickListener {
+            viewModel.updateCurrentPhotoPath(null)
         }
+
+        updateLiveData()
+        initMiscellaneous()
     }
 
     // LiveData handler
     private fun updateLiveData() {
         viewModel.saveState.observe(this, {
             it?.let {
-                saveFromViewModel()
+                val title = binding.noteTitle.text
+                val content = binding.noteContent.text
+
+                when (0) {
+                    title.length -> showToast(this, "Title can't be empty")
+                    content.length -> showToast(this, "Content can't be empty")
+
+                    else -> {
+                        viewModel.save(
+                            NoteEntity(
+                                id = intent.getParcelableExtra<NoteEntity>("note")?.id,
+                                title = title.toString(),
+                                content = content.toString(),
+                                imagePath = viewModel.pathname.value,
+                                dateTime = viewModel.dateTime
+                            )
+                        ).apply {
+                            setResult(RESULT_OK)
+                            finish()
+                        }
+                    }
+                }
             }
         })
 
@@ -118,28 +136,6 @@ class AddNoteActivity : AppCompatActivity() {
                 finish()
             }
         })
-    }
-
-    private fun saveFromViewModel() {
-        when (0) {
-            title.text.length -> showToast(this, "Title can't be empty")
-            content.text.length -> showToast(this, "Content can't be empty")
-
-            else -> {
-                viewModel.save(
-                    NoteEntity(
-                        id = intent.getParcelableExtra<NoteEntity>("note")?.id,
-                        title = title.text.toString(),
-                        content = content.text.toString(),
-                        imagePath = selectedImagePath,
-                        dateTime = viewModel.dateTime
-                    )
-                )
-
-                setResult(RESULT_OK)
-                finish()
-            }
-        }
     }
 
     /**
@@ -169,26 +165,32 @@ class AddNoteActivity : AppCompatActivity() {
         // Select Image button
         miscellaneousLayout.findViewById<LinearLayout>(R.id.item_select_image).setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            // asking for permission the moment it clicked
-            if (checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    REQUEST_CODE_STORAGE_PERMISSION
-                )
-            } else {
-                selectImage()
+            showChooseImageDialog()
+        }
+
+        miscellaneousLayout.findViewById<LinearLayout>(R.id.item_share).setOnClickListener {
+            intent.extras?.getParcelable<NoteEntity>("note")?.let {
+                val shareIntent: Intent = ShareCompat.IntentBuilder.from(this)
+                    .setText("Title: ${it.title}\nDate: ${it.dateTime}\n\nContent: ${it.content}")
+                    .setType("text/plain")
+                    .intent
+
+                startActivity(shareIntent)
             }
         }
     }
 
+    /**
+     * Dialog delete
+     * this AlertDialog is used for deleting an item
+     */
     private fun showDialogDeleteNote() {
-        val builder = AlertDialog.Builder(this)
         val view = LayoutInflater.from(this).inflate(
             R.layout.delete_dialog_box,
             findViewById(R.id.layout_delete_note_container)
         )
 
+        val builder = AlertDialog.Builder(this)
         builder.setView(view)
         dialogDeleteNote = builder.create()
 
@@ -208,43 +210,99 @@ class AddNoteActivity : AppCompatActivity() {
     }
 
     /**
-     * Select image from storage
+     * showChooseImageDialog
+     *  this AlertDialog is used for choosing between
+     *  browse an image from FileManager or Take a photo
      */
-    private fun selectImage() {
-        val intent =
-            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+    private fun showChooseImageDialog() {
+        val dialog = android.app.AlertDialog.Builder(this)
+        val view = LayoutInflater.from(this).inflate(
+            R.layout.dialog_choose_image,
+            findViewById(R.id.dialog_choose_image_container)
+        )
+        dialog.setView(view)
 
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE)
+        val chooseImageDialog = dialog.create()
+        val takePhotoButton: LinearLayout = view.findViewById(R.id.item_take_photo)
+        val chooseImageButton: LinearLayout = view.findViewById(R.id.item_choose_image)
+
+        chooseImageDialog.window?.let {
+            it.setBackgroundDrawable(ColorDrawable(0))
+            chooseImageDialog.show()
+        }
+
+        chooseImageButton.setOnClickListener {
+            if (isPermitted(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                selectImage(this, packageManager, REQUEST_CODE_SELECT_IMAGE)
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    REQUEST_CODE_STORAGE_PERMISSION
+                )
+            }
+            chooseImageDialog.dismiss()
+        }
+
+        takePhotoButton.setOnClickListener {
+            if (isPermitted(this, Manifest.permission.CAMERA)) {
+                dispatchTakePictureIntent()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.CAMERA),
+                    REQUEST_CODE_CAMERA_PERMISSION
+                )
+            }
+            chooseImageDialog.dismiss()
         }
     }
 
-    /**
-     * Get selected image path
-     *
-     * selected image from method above will passed here to extract the
-     * image's path
-     */
-    private fun getSelectedImagePath(contentUri: Uri): String {
-        val filePath: String
-        val cursor: Cursor? = contentResolver.query(
-            contentUri,
-            null,
-            null,
-            null,
-            null
-        )
+//    private fun launchCamera() {
+//        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        try {
+//            startActivityForResult(takePictureIntent, REQUEST_CODE_TAKE_PICTURE)
+//        } catch (e: Exception) {
+//            e.message?.let {
+//                showToast(this, it, Toast.LENGTH_LONG)
+//            }
+//        }
+//    }
 
-        if (cursor == null) {
-            filePath = contentUri.path!!
-        } else {
-            cursor.moveToFirst()
-            val index: Int = cursor.getColumnIndex("_data")
-            filePath = cursor.getString(index)
-            cursor.close()
+    @SuppressLint("SimpleDateFormat")
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timestamp}",
+            ".jpg",
+            storageDir
+        ).apply {
+            viewModel.updateCurrentPhotoPath(absolutePath)
         }
+    }
 
-        return filePath
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(packageManager).also {
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (e: IOException) {
+                    null
+                }
+
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        this,
+                        "com.example.notes.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, REQUEST_CODE_TAKE_PICTURE)
+                }
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -254,11 +312,23 @@ class AddNoteActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == REQUEST_CODE_STORAGE_PERMISSION && grantResults.isNotEmpty()) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                selectImage()
-            } else {
-                showToast(this, "Permission Denied")
+        if (grantResults.isNotEmpty()) {
+            when (requestCode) {
+                REQUEST_CODE_STORAGE_PERMISSION -> {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        selectImage(this, packageManager, REQUEST_CODE_SELECT_IMAGE)
+                    } else {
+                        showToast(this, "Permission Denied")
+                    }
+                }
+
+                REQUEST_CODE_CAMERA_PERMISSION -> {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        dispatchTakePictureIntent()
+                    } else {
+                        showToast(this, "Permission Denied")
+                    }
+                }
             }
         }
     }
@@ -266,18 +336,18 @@ class AddNoteActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK) {
-            if (data != null) {
-                val selectedImage: Uri? = data.data
 
-                selectedImage?.let {
-                    val inputStream: InputStream = contentResolver.openInputStream(selectedImage)!!
-                    val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE_SELECT_IMAGE -> {
+                    if (data != null) {
+                        val selectedImage: Uri? = data.data
 
-                    selectedImagePath = getSelectedImagePath(selectedImage)
-
-                    binding.imageCover.setImageBitmap(bitmap)
-                    binding.imageCover.visibility = View.VISIBLE
+                        selectedImage?.let {
+                            val path = getSelectedImagePath(contentResolver, selectedImage)
+                            viewModel.updateCurrentPhotoPath(path)
+                        }
+                    }
                 }
             }
         }

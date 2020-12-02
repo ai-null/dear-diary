@@ -28,13 +28,15 @@
             android:orientation="vertical">
 
             <ImageView
+                setImageSource="@{noteEntity.imagePath}"
                 android:id="@+id/item_cover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 tools:ignore="ContentDescription"
                 tools:layout_height="100dp"
+                android:maxHeight="250dp"
                 tools:src="@drawable/ainul2" />
 
             <TextView
