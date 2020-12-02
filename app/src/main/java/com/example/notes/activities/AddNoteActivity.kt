@@ -88,6 +88,10 @@ class AddNoteActivity : AppCompatActivity() {
             viewModel.onSavePressed(saveState)
         }
 
+        binding.buttonDeleteCover.setOnClickListener {
+            viewModel.updateCurrentPhotoPath(null)
+        }
+
         updateLiveData()
         initMiscellaneous()
     }
