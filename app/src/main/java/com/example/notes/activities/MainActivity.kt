@@ -3,12 +3,26 @@ package com.example.notes.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
+import android.view.animation.Transformation
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.example.notes.R
 import com.example.notes.adapter.NoteListAdapter
 import com.example.notes.adapter.listener.NoteClickListener
 import com.example.notes.databinding.ActivityMainBinding
 import com.example.notes.entities.NoteEntity
+import com.example.notes.utils.onSearch
 import com.example.notes.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity(), NoteClickListener {
@@ -39,10 +53,32 @@ class MainActivity : AppCompatActivity(), NoteClickListener {
             adapter.submitList(it)
         })
 
+        viewModel.search.observe(this, {
+            adapter.submitList(it)
+        })
+
         // add button onClick
         binding.addNotes.setOnClickListener {
             startActivity(Intent(applicationContext, AddNoteActivity::class.java))
         }
+
+        binding.searchText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                charSequence: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.searchItems(s.toString())
+                binding.noteList.scrollX = 0
+            }
+
+        })
     }
 
 

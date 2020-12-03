@@ -46,6 +46,7 @@
                 android:src="@drawable/ic_search" />
 
             <EditText
+                android:id="@+id/search_text"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="12dp"

@@ -48,7 +48,8 @@ class AddNoteActivity : AppCompatActivity() {
     private lateinit var viewModel: AddNoteViewModel
 
     private var saveState: SaveState = SaveState.SAVE
-    private var id: Int = 0
+
+    private var currentItemId: Int? = 0
 
     private lateinit var dialogDeleteNote: AlertDialog
 
@@ -71,11 +72,12 @@ class AddNoteActivity : AppCompatActivity() {
             findViewById<LinearLayout>(R.id.item_delete).visibility = View.VISIBLE
             saveState = SaveState.UPDATE
 
-            intent.extras?.getParcelable<NoteEntity>("note")?.let {
-                id = it.id!!
-                binding.noteEntity = it
-                binding.dateTime = it.dateTime
-                viewModel.updateCurrentPhotoPath(it.imagePath)
+            intent.extras?.getParcelable<NoteEntity>("note")?.run {
+                binding.noteEntity = this
+                binding.dateTime = dateTime
+                currentItemId = id
+
+                viewModel.updateCurrentPhotoPath(imagePath)
             }
         }
 
@@ -100,7 +102,7 @@ class AddNoteActivity : AppCompatActivity() {
     // LiveData handler
     private fun updateLiveData() {
         viewModel.saveState.observe(this, {
-            it?.let {
+            if (it !== null) {
                 val title = binding.noteTitle.text
                 val content = binding.noteContent.text
 
@@ -111,13 +113,13 @@ class AddNoteActivity : AppCompatActivity() {
                     else -> {
                         viewModel.save(
                             NoteEntity(
-                                id = intent.getParcelableExtra<NoteEntity>("note")?.id,
+                                id = currentItemId,
                                 title = title.toString(),
                                 content = content.toString(),
                                 imagePath = viewModel.pathname.value,
                                 dateTime = viewModel.dateTime
                             )
-                        ).apply {
+                        ).also {
                             setResult(RESULT_OK)
                             finish()
                         }
@@ -127,13 +129,13 @@ class AddNoteActivity : AppCompatActivity() {
         })
 
         viewModel.deleteState.observe(this, {
-            it?.let {
-                viewModel.delete(id)
+            currentItemId?.let {
+                viewModel.delete(it)
 
-                val intent = intent
-                intent.putExtra("noteDeleted", true)
-                setResult(RESULT_OK, intent)
-                finish()
+                intent.putExtra("noteDeleted", true).also { intent ->
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
             }
         })
     }
@@ -169,9 +171,9 @@ class AddNoteActivity : AppCompatActivity() {
         }
 
         miscellaneousLayout.findViewById<LinearLayout>(R.id.item_share).setOnClickListener {
-            intent.extras?.getParcelable<NoteEntity>("note")?.let {
-                val shareIntent: Intent = ShareCompat.IntentBuilder.from(this)
-                    .setText("Title: ${it.title}\nDate: ${it.dateTime}\n\nContent: ${it.content}")
+            intent.extras?.getParcelable<NoteEntity>("note")?.run {
+                val shareIntent = ShareCompat.IntentBuilder.from(this@AddNoteActivity)
+                    .setText("Title: $title \nDate: $dateTime\n\nContent: $content")
                     .setType("text/plain")
                     .intent
 
@@ -190,9 +192,10 @@ class AddNoteActivity : AppCompatActivity() {
             findViewById(R.id.layout_delete_note_container)
         )
 
-        val builder = AlertDialog.Builder(this)
-        builder.setView(view)
-        dialogDeleteNote = builder.create()
+        AlertDialog.Builder(this).apply {
+            setView(view)
+            dialogDeleteNote = this.create()
+        }
 
         if (dialogDeleteNote.window != null) {
             dialogDeleteNote.window!!.setBackgroundDrawable(ColorDrawable(0))
@@ -226,8 +229,8 @@ class AddNoteActivity : AppCompatActivity() {
         val takePhotoButton: LinearLayout = view.findViewById(R.id.item_take_photo)
         val chooseImageButton: LinearLayout = view.findViewById(R.id.item_choose_image)
 
-        chooseImageDialog.window?.let {
-            it.setBackgroundDrawable(ColorDrawable(0))
+        chooseImageDialog.window?.run {
+            setBackgroundDrawable(ColorDrawable(0))
             chooseImageDialog.show()
         }
 
@@ -336,18 +339,13 @@ class AddNoteActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_SELECT_IMAGE) {
+            if (data != null) {
+                val selectedImage: Uri? = data.data
 
-        if (resultCode == RESULT_OK) {
-            when (requestCode) {
-                REQUEST_CODE_SELECT_IMAGE -> {
-                    if (data != null) {
-                        val selectedImage: Uri? = data.data
-
-                        selectedImage?.let {
-                            val path = getSelectedImagePath(contentResolver, selectedImage)
-                            viewModel.updateCurrentPhotoPath(path)
-                        }
-                    }
+                selectedImage?.let {
+                    val path = getSelectedImagePath(contentResolver, selectedImage)
+                    viewModel.updateCurrentPhotoPath(path)
                 }
             }
         }

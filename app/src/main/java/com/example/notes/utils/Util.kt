@@ -8,6 +8,11 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
@@ -83,4 +88,14 @@ fun getSelectedImagePath(contentResolver: ContentResolver, contentUri: Uri): Str
     }
 
     return filePath
+}
+
+fun EditText.onSearch(method: (view: TextView) -> Unit) {
+    setOnEditorActionListener(TextView.OnEditorActionListener { view, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            method(view)
+        }
+
+        true
+    })
 }
