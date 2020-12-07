@@ -22,7 +22,7 @@
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/medium_margin"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_plantdoodle"
+            android:src="@drawable/ic_unboxingdoodle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -4,7 +4,9 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorBlack</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#FFCB00</item>
+        <item name="colorBackgroundSplash">@color/colorWhite</item>
     </style>
 
     <style name="default_icon_button">
@@ -25,9 +27,7 @@
     </style>
 
     <style name="AppTheme.Splash" parent="AppTheme">
-        <item name="colorBackgroundSplash">@color/colorWhite</item>
         <item name="android:windowBackground">@drawable/background_splash</item>
-        <item name="android:statusBarColor">@color/colorBlack</item>
     </style>
 
     <style name="bottomBarSelectableItem">

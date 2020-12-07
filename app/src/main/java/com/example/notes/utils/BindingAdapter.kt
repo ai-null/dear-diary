@@ -1,5 +1,6 @@
 package com.example.notes.utils
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -15,5 +16,14 @@ fun ImageView.setImageSource(pathname: String?) {
         this.visibility = ImageView.VISIBLE
     } else {
         this.visibility = ImageView.GONE
+    }
+}
+
+@BindingAdapter("isDataEmpty")
+fun View.isDataEmpty(data: Boolean) {
+    if (data) {
+        this.visibility = View.VISIBLE
+    } else {
+        this.visibility = View.GONE
     }
 }
