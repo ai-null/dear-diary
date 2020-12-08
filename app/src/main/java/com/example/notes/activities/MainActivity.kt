@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), NoteClickListener {
         // we just need to observe for changed data then submit it to adapter.
         viewModel.notes.observe(this, {
             adapter.submitList(it)
+            binding.data = it.isEmpty()
         })
 
         viewModel.search.observe(this, {

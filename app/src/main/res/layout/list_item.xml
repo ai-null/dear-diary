@@ -37,7 +37,7 @@
                 tools:ignore="ContentDescription"
                 tools:layout_height="100dp"
                 android:maxHeight="250dp"
-                tools:src="@drawable/ainul2" />
+                tools:src="@drawable/ic_unboxingdoodle" />
 
             <TextView
                 android:id="@+id/item_title"

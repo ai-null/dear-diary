@@ -11,8 +11,10 @@
     <string name="save_icon">save icon</string>
     <string name="icon_delete">Icon delete</string>
 
-    <!--  MainActivity - EditTexts placeholder  -->
+    <!--  MainActivity - EditTexts placeholder && No content illustration message -->
     <string name="search_notes">Search</string>
+    <string name="no_content_message">A fresh start</string>
+    <string name="no_content_submessage">Anything to add ?</string>
 
     <!--  AddNoteActivity - EditTexts placeholder && Image cover -->
     <string name="title">Title</string>
@@ -26,11 +28,13 @@
     <string name="delete_note">Delete</string>
     <string name="delete_note_subtitle">Are you sure want to delete this story ?</string>
 
+    <!--  Dialog choose image  -->
+    <string name="dialog_image_title">Add an image</string>
+
     <!--  Misc  -->
     <string name="misc">Miscellaneous</string>
     <string name="add_img">Add an image</string>
     <string name="add_link">Add a link</string>
     <string name="make_copy">Make a copy</string>
     <string name="share">Share</string>
-    <string name="dialog_image_title">Add an image</string>
 </resources>
