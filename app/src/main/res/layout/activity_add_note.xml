@@ -96,7 +96,7 @@
                     android:contentDescription="@string/image_cover"
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/note_date"
-                    tools:src="@drawable/ainul2"
+                    tools:src="@drawable/ic_unboxingdoodle"
                     tools:visibility="visible" />
 
                 <ImageView

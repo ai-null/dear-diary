@@ -16,65 +16,64 @@
         android:background="@color/colorWhite2"
         tools:context=".activities.ui.MainActivity">
 
-        <LinearLayout
-            android:id="@+id/top_container"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/search_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="26dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:layout_margin="@dimen/medium_margin"
+            android:fontFamily="@font/bellota_bold"
+            android:includeFontPadding="false"
+            android:text="@string/app_name"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/search_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:background="@drawable/background_searchbar"
+            android:clickable="true"
             android:elevation="2dp"
+            android:focusable="true"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingHorizontal="@dimen/medium_margin"
+            app:layout_constraintTop_toBottomOf="@id/title_text">
 
-            <TextView
-                android:id="@+id/title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_margin="@dimen/medium_margin"
-                android:fontFamily="@font/bellota_bold"
-                android:includeFontPadding="false"
-                android:text="@string/app_name"
-                android:textColor="@color/colorBlack"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:contentDescription="@string/search_icon"
+                android:src="@drawable/ic_search" />
 
-            <LinearLayout
-                android:layout_marginTop="@dimen/medium_margin"
-                android:id="@+id/search_container"
+            <EditText
+                android:id="@+id/search_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/medium_margin"
-                android:layout_marginHorizontal="@dimen/medium_margin"
-                android:background="@drawable/background_searchbar"
-                android:clickable="true"
-                android:elevation="2dp"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="12dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:contentDescription="@string/search_icon"
-                    android:src="@drawable/ic_search" />
-
-                <EditText
-                    android:id="@+id/search_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="12dp"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/search_notes"
-                    android:imeOptions="actionSearch"
-                    android:importantForAutofill="no"
-                    android:includeFontPadding="false"
-                    android:inputType="text"
-                    android:textColor="@color/colorBlack" />
-
-            </LinearLayout>
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/search_notes"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:textColor="@color/colorBlack" />
 
         </LinearLayout>
 
@@ -88,7 +87,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_container"
+            app:layout_constraintTop_toBottomOf="@id/search_container"
             app:spanCount="2"
             tools:itemCount="2"
             tools:listitem="@layout/list_item" />
@@ -112,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/medium_margin"
             android:gravity="center"
-            android:text="A fresh start"
+            android:text="@string/no_content_message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/no_content_cover" />
@@ -124,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:gravity="center"
-            android:text="Anything to add ?"
+            android:text="@string/no_content_submessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/no_content_title" />
