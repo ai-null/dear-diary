@@ -7,7 +7,8 @@ Dear diary is a simple diary (or note) app built with kotlin, the design idea wa
 </p>
 
 ___
-### Architecture
+## Architecture
+
 * min Sdk 23
 * [Kotlin](https://kotlinlang.org/), [Courotines](https://developer.android.com/kotlin/coroutines) for threading.
 * Jetpack
@@ -18,15 +19,15 @@ ___
 * MVVM Architecture (View - DataBinding - ViewModel - Model)
 
 ___
-### Depedencies
+## Depedencies
 | Library | Description |
 | ------  | ----------- |
-| [Glide](https://github.com/bumptech/glide) | lightweight image processing library & reducing image size |
+| [Glide](https://github.com/bumptech/glide) | lightweight image processing library |
 | [Material Components](https://github.com/material-components/material-components-android) | UI styling library |
 | [Room Database](https://developer.android.com/jetpack/androidx/releases/room) | local database |
 
 ___
-### License
+## License
 ```
 MIT License
 
