@@ -6,6 +6,7 @@ Dear diary is a simple diary (or note) app built with kotlin,
 </p>
 
 <img align="right" src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/demo dear-diary.gif" width="25%" />
+
 ___
 ## Architecture
 
