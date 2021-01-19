@@ -11,7 +11,6 @@ Dear diary is a simple diary (or note) app built with kotlin,
 <img src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/dialog-delete.png" width="30%" />
 </p>
 
-
 <img align="right" src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/demo dear-diary.gif" width="25%" />
 
 ___
@@ -26,7 +25,6 @@ ___
   * Room - local Database
 * MVVM Architecture (View - DataBinding - ViewModel - Model)
 
-___
 ## Depedencies
 | Library | Description |
 | ------  | ----------- |
