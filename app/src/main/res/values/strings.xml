@@ -37,4 +37,5 @@
     <string name="add_link">Add a link</string>
     <string name="make_copy">Make a copy</string>
     <string name="share">Share</string>
+    <string name="username_and_email"><![CDATA[Username & Email address]]></string>
 </resources>
