@@ -32,7 +32,7 @@
             android:name=".activities.AddNoteActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.Playground"
             android:theme="@style/AppTheme.Splash"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -41,6 +41,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.DashboardActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:parentActivityName=".activities.LoginActivity"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>
