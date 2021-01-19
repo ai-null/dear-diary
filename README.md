@@ -1,11 +1,11 @@
-# Dear-diary
-
-Dear diary is a simple diary (or note) app built with kotlin, the design idea was from this youtube **[playlist](https://www.youtube.com/watch?v=hlkekoPqsis&list=PLam6bY5NszYN6-a1wt7yRISWfmYPdkbMu)** and illustrations from **[OpenDoodles](https://opendoodles.com/)**.
+<h1 align="center">Dear-diary</h1>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/demo dear-diary.gif" height="400px" />
+Dear diary is a simple diary (or note) app built with kotlin,
+  <br />the design idea was from this youtube <b><a href="https://www.youtube.com/watch?v=hlkekoPqsis&list=PLam6bY5NszYN6-a1wt7yRISWfmYPdkbMu">playlist</a></b> and the illustrations from <b><a href="https://opendoodles.com/">OpenDoodles</a></b>.
 </p>
 
+<img align="right" src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/demo dear-diary.gif" width="25%" />
 ___
 ## Architecture
 
