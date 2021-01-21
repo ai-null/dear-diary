@@ -9,9 +9,11 @@ Dear diary is a simple diary (or note) app built with kotlin,
 <img src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/homescreen.png" width="30%" />
 <img src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/add-note-screen.png" width="30%" />
 <img src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/dialog-delete.png" width="30%" />
-</p>
 
-<img align="right" src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/demo dear-diary.gif" width="25%" />
+<br />
+<br />
+<img align="center" src="https://raw.githubusercontent.com/ai-null/dear-diary/dev/demo/demo dear-diary.gif" width="60%" />
+</p>
 
 ___
 ## Architecture
