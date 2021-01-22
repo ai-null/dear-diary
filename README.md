@@ -25,7 +25,7 @@ ___
   * lifecycle - data changes observer
   * ViewModel - UI related data holder
   * Room - local Database
-* MVVM Architecture (View - DataBinding - ViewModel - Model)
+* MVVM Architecture (Model - View - ViewModel)
 
 ___
 ## Depedencies
