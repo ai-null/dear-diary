@@ -1,3 +1,7 @@
+<p align="center">
+<img src="https://www.codefactor.io/repository/github/ai-null/dear-diary/badge" />
+</p>
+
 <h1 align="center">Dear-diary</h1>
 
 <p align="center">
