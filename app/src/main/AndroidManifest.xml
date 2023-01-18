@@ -27,12 +27,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
         <activity
-            android:name=".activities.AddNoteActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.Playground"
+            android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.Splash"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -42,14 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.DashboardActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.LoginActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.RegisterActivity"
-            android:parentActivityName=".activities.LoginActivity"
+            android:name=".activities.AddNoteActivity"
             android:windowSoftInputMode="stateHidden" />
     </application>
 
